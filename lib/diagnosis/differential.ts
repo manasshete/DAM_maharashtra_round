@@ -61,10 +61,9 @@ export async function runDifferentialDiagnosis(input: DifferentialDiagnosisInput
     };
   }
 
-  // 5. Hard Differential Rule for M02 specifically
-  // "A single code pattern must never be sufficient to diagnose M02."
-  // If the ONLY feature we have is ast_items_1, force ABSTAIN.
+  // 5. Hard Differential Rules
   if (predictedClass === "M02") {
+    // "A single code pattern must never be sufficient to diagnose M02."
     const hasStrongM02Evidence = 
       input.features["output_incorrect_second_element"] || 
       input.features["reasoning_index_1"];
@@ -74,6 +73,26 @@ export async function runDifferentialDiagnosis(input: DifferentialDiagnosisInput
         status: "ABSTAIN",
         candidateId: "M02",
         explanation: "Found items[1] in AST, but this single code pattern is insufficient without behavioral or reasoning evidence.",
+        needsDiagnosticQuestion: true
+      };
+    }
+  } else if (predictedClass === "M01") {
+    const hasStrongM01Evidence = input.features["reasoning_range_starts_1"];
+    if (!hasStrongM01Evidence && !input.features["output_incorrect_other"]) {
+      return {
+        status: "ABSTAIN",
+        candidateId: "M01",
+        explanation: "Weak evidence for M01 without output mismatch or explicit reasoning.",
+        needsDiagnosticQuestion: true
+      };
+    }
+  } else if (predictedClass === "M03") {
+    const hasStrongM03Evidence = input.features["reasoning_includes_endpoint"];
+    if (!hasStrongM03Evidence && !input.features["output_incorrect_other"]) {
+      return {
+        status: "ABSTAIN",
+        candidateId: "M03",
+        explanation: "Weak evidence for M03 without output mismatch or explicit reasoning.",
         needsDiagnosticQuestion: true
       };
     }
