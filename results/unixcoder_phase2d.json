@@ -1,0 +1,141 @@
+{
+  "model": "microsoft/unixcoder-base",
+  "model_type": "sequence_classification",
+  "dataset_version": "v2",
+  "train_size": 80,
+  "validation_size": 21,
+  "held_out_size": 44,
+  "accuracy": 0.6363636363636364,
+  "macro_f1": 0.42684659090909094,
+  "per_class": {
+    "M01": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "M02": {
+      "precision": 0.5238095238095238,
+      "recall": 1.0,
+      "f1": 0.6875
+    },
+    "M03": {
+      "precision": 0.5714285714285714,
+      "recall": 1.0,
+      "f1": 0.7272727272727273
+    },
+    "OTHER_UNKNOWN": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "CAREFUL_CORRECT": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "CARELESS_ERROR": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "SYNTAX_ERROR": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "RUNTIME_ERROR": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      7,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      11,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      8,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      6,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0
+    ],
+    [
+      0,
+      4,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "config": {
+    "seed": 42,
+    "batch_size": 8,
+    "epochs": 3,
+    "learning_rate": 2e-05,
+    "max_seq_length": 256
+  }
+}
