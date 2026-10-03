@@ -1,0 +1,10 @@
+{"id": "dev_01", "features": {"ast_items_1": 1, "output_incorrect_second_element": 1, "reasoning_index_1": 1}, "label": "M02"}
+{"id": "dev_02", "features": {"ast_items_1": 1, "output_incorrect_second_element": 1}, "label": "M02"}
+{"id": "dev_03", "features": {"ast_items_1": 1, "reasoning_index_1": 1}, "label": "M02"}
+{"id": "dev_04", "features": {"ast_items_1": 1, "output_correct": 1}, "label": "OTHER_UNKNOWN"}
+{"id": "dev_05", "features": {"ast_items_1": 1, "output_incorrect_other": 1}, "label": "CARELESS_ERROR"}
+{"id": "dev_06", "features": {"syntax_error": 1}, "label": "SYNTAX_ERROR"}
+{"id": "dev_07", "features": {"runtime_error": 1, "ast_index_out_of_bounds": 1}, "label": "RUNTIME_ERROR"}
+{"id": "dev_08", "features": {"ast_items_1": 1, "output_incorrect_second_element": 1, "reasoning_off_by_one": 1}, "label": "M02"}
+{"id": "dev_09", "features": {"ast_items_0": 1, "output_correct": 1}, "label": "OTHER_UNKNOWN"}
+{"id": "dev_10", "features": {"ast_items_1": 1, "runtime_error": 1}, "label": "RUNTIME_ERROR"}

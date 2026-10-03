@@ -1,0 +1,256 @@
+# Re:Learn — Technical Implementation & Trained Model Report
+
+## 1. PROJECT OVERVIEW
+
+Re:Learn is an AI-powered misconception-aware introductory programming tutor. It analyzes learner code, execution behavior, and reasoning to identify an underlying misconception rather than merely marking an answer wrong. It then provides a targeted intervention, reassesses the learner, and checks whether the misconception was actually resolved. The core diagnostic logic relies on deterministic execution traces and a trained statistical classifier, avoiding the unreliability of zero-shot LLM prompts for pedagogical evaluation.
+
+## 2. PROBLEM STATEMENT ALIGNMENT
+
+| Requirement | Implementation | File(s) | Status |
+|---|---|---|---|
+| Misconception Dataset | Scaffold JSONL with features and labels | `data/eval/development.jsonl`, `data/eval/held-out.jsonl` | Implemented (Scaffold) |
+| Misconception Model | Categorical Naive Bayes | `lib/diagnosis/model/classifier.ts` | Implemented (Baseline) |
+| Model Training | Training script utilizing ml-naivebayes | `scripts/train-misconception-model.ts` | Implemented |
+| Model Evaluation | Held-out evaluation script | `scripts/evaluate-misconception-model.ts` | Implemented |
+| Misconception Differentiation | Differential Diagnosis engine | `lib/diagnosis/differential.ts` | Implemented |
+| Adaptive Intervention | Multi-level intervention engine | `lib/intervention/engine.ts`, `data/interventions/M02.ts` | Implemented |
+| Resolution Assessment | Correct-answer trap and Reassessment evaluator | `lib/learner/reassessment.ts`, `data/questions/M02_reassess.ts` | Implemented |
+| Learner Model | MisconceptionState resolution tracker | `lib/learner/resolution.ts` | Implemented |
+| Unseen/held-out evaluation | 5 examples isolated from training | `data/eval/held-out.jsonl` | Implemented (Scaffold) |
+
+## 3. TRAINED MISCONCEPTION MODEL
+
+### A. Model architecture
+The system currently uses a `NaiveBayesClassifier` abstraction (`lib/diagnosis/model/classifier.ts`) built around the `ml-naivebayes` library. It maps boolean/categorical feature vectors (e.g., `ast_items_1`, `output_incorrect_second_element`) to misconception classes (e.g., `M02`, `RUNTIME_ERROR`). It uses standard Laplace smoothing to calculate posterior probabilities for predictions. The model provides serialization logic (`toJson`, `fromJson`) to save the trained weights.
+
+### B. Training pipeline
+1. **Dataset:** `data/eval/development.jsonl` (currently 10 examples).
+2. **Feature Extraction:** Deterministic rules in `lib/evidence/extractor.ts` pull properties from AST patterns, execution context, and reasoning into a `FeatureVector`.
+3. **Model Training:** `scripts/train-misconception-model.ts` iterates over the development dataset, calling `model.train(features, label)`.
+4. **Serialization:** The resulting parameters are serialized to `data/eval/misconception_model_v1.json`.
+
+### C. Inference pipeline
+1. **New learner evidence:** Student submits code. Pyodide captures execution traces (`lib/execution/PyodideWorker.ts`).
+2. **Feature vector:** `extractFeatures()` generates the current feature set.
+3. **Trained model:** The `NaiveBayesClassifier` instances receives the vector via `model.predict(features)`.
+4. **Class probabilities:** Returns a candidate class and a confidence score.
+5. **Candidate misconception:** E.g., `M02` with 0.85 confidence.
+
+### D. Evaluation pipeline
+1. **Held-out examples:** `scripts/evaluate-misconception-model.ts` loads `data/eval/held-out.jsonl` (5 examples).
+2. **Loaded trained model:** The script initializes the model using the saved artifact.
+3. **Predictions:** Compares predicted class to ground-truth label.
+4. **Metrics:** Generates Accuracy, Precision, Recall, and Macro-F1.
+
+## 4. ACTUAL MODEL RESULTS
+
+*Initial baseline / scaffold evaluation*
+
+Running `npx tsx scripts/evaluate-misconception-model.ts` yields the following verified results:
+
+```
+Evaluated 5 examples.
+Overall Accuracy: 60.00%
+
+Per-class Metrics:
+- M02: Precision=0.50, Recall=1.00, F1=0.67
+- RUNTIME_ERROR: Precision=1.00, Recall=1.00, F1=1.00
+- OTHER_UNKNOWN: Precision=0.00, Recall=0.00, F1=0.00
+- SYNTAX_ERROR: Precision=0.00, Recall=0.00, F1=0.00
+
+Macro-F1 Score: 0.4167
+
+--- DIFFERENTIAL DIAGNOSIS EVALUATION ---
+Total samples: 5
+Abstained due to insufficient evidence or guardrails: 4 (80.00%)
+Diagnosed Correctly: 1 (20.00%)
+Diagnosed Incorrectly: 0 (0.00%)
+Evidence-Sufficiency Rate (Diagnosed Correctly / Total Diagnosed): 100.00%
+```
+
+## 5. MODEL ARTIFACT
+
+- **Exact Path:** `data/eval/misconception_model_v1.json`
+- **Existence:** Yes.
+- **Content:** Serialized state of the `ml-naivebayes` model containing class priors, feature counts, and probabilities mapping to features like `ast_items_1` and `output_incorrect_second_element`.
+- **Loading Mechanism:** The client (`components/ReassessmentUI.tsx` and differential engine) fetches this JSON file and injects it into `classifier.load(modelData)`.
+- **Inference Check:** Yes, inference dynamically uses these saved, trained parameters rather than hard-coded rules.
+
+## 6. DATASET
+
+- **Development Examples:** 10 (`data/eval/development.jsonl`)
+- **Held-out Examples:** 5 (`data/eval/held-out.jsonl`)
+- **Labels/Classes:** `M02`, `RUNTIME_ERROR`, `SYNTAX_ERROR`, `OTHER_UNKNOWN`.
+- **Feature Fields:** `ast_items_1`, `output_incorrect_second_element`, `reasoning_index_1`, etc.
+- **Content:** Examples contain execution output, syntax flags, and boolean reasoning traces.
+- **Exclusion:** The held-out dataset is strictly excluded from training; the training script specifically loads only `development.jsonl`.
+
+## 7. EVIDENCE ENGINE
+
+The deterministic evidence extraction is defined in `lib/evidence/extractor.ts` and mapped to questions in `data/questions/M02.ts`.
+
+The evidence hierarchy is:
+- **AST pattern** → Weak (e.g., `items[1]`).
+- **Execution behavior** → Moderate (e.g., standard output matches "tuesday").
+- **Explicit reasoning** → Strong (e.g., text mentions "first index is 1").
+- **Diagnostic confirmation** → Strong.
+
+**Why does `items[1]` not automatically mean M02?**
+A student might write `items[1]` because they genuinely meant to select the second item (perhaps misreading the prompt). An AST pattern alone is circumstantial. To diagnose the conceptual misconception, the system must correlate it with execution behavior (did they output the wrong item?) or reasoning (did they say "first item is index 1"?).
+
+## 8. DIFFERENTIAL DIAGNOSIS
+
+The engine (`lib/diagnosis/differential.ts`) is designed to prevent hallucination or over-confident guessing.
+
+**Flow:**
+`trained model prediction + deterministic evidence + question context + guardrails → DIAGNOSED / ABSTAIN`
+
+- **Confidence Threshold:** The model must predict a class with `> 0.8` confidence.
+- **Abstention Behavior:** If the candidate is `M02` but the *only* evidence is `ast_items_1` (weak evidence), the engine overrides the model and forces an `ABSTAIN` (Insufficient Evidence). It will not diagnose M02 without corroborating behavioral or reasoning evidence.
+
+## 9. LLM / API ROLE
+
+The LLM (managed via `lib/ai/gateway.ts`) is **NOT** the core misconception classifier.
+
+Its role is restricted to translating the deterministic diagnosis into a friendly explanation and providing dynamic, context-aware feedback (e.g., structured explanations). The taxonomy IDs are constrained by the differential engine; the LLM merely receives `M02` as input and returns a Zod-validated explanation. It cannot invent misconception IDs or bypass the evidence engine.
+
+## 10. M02
+
+**M02 = "The first list index is 1."**
+
+- **Evidence (`data/questions/M02.ts`):** `ast_items_1` (weak), `output_incorrect_second_element` (moderate), `reasoning_index_1` (strong).
+- **Diagnosis:** If extracted evidence passes the Naive Bayes model and differential guardrails, it yields M02.
+- **Intervention (`data/interventions/M02.ts`):** 4 levels (Hint, Explanation, Worked Example, Guided Practice) directly addressing the 0-index rule.
+- **Direct Reassessment (`data/questions/M02_reassess.ts`):** "Print the first day of the week."
+- **Transfer Reassessment (`data/questions/M02_reassess.ts`):** "Print the first letter from the list ['a', 'b', 'c']."
+- **Reasoning Reassessment:** Implicitly captured alongside code submission in the UI.
+
+## 11. CORRECT-ANSWER TRAP
+
+The correct-answer trap (`lib/learner/reassessment.ts`, `lib/learner/resolution.ts`) prevents premature graduation.
+
+**Important Case:** Correct answer + incorrect/contradictory reasoning = misconception is NOT resolved.
+
+If a student outputs `a` (correct), but their reasoning trace contains "first index is 1, so I subtracted 1", `evaluateReassessment` sets `hasMisconceptionReasoning = true`. The resolution engine evaluates this and forces a transition to `PERSISTENT` rather than `IMPROVING`.
+
+## 12. INTERVENTION
+
+The deterministic `InterventionEngine` (`lib/intervention/engine.ts`) escalates support levels based on repeated failures:
+1. **Hint:** A probing question ("Wait a second... does Python start counting items at 1?").
+2. **Explanation:** Direct conceptual rule delivery ("Python list indexing starts at 0").
+3. **Worked Example:** A concrete snippet showing index mapping.
+4. **Guided Practice:** A highly structured mini-task targeting the exact failing concept.
+
+## 13. RESOLUTION
+
+State transitions (`lib/learner/resolution.ts`):
+`INTERVENTION → REASSESSMENT (direct) → IMPROVING / PERSISTENT → REASSESSMENT (transfer) + reasoning → VERIFIED_RESOLVED`
+
+Yes, the current implementation strictly requires clean direct execution, clean transfer execution, and clean conceptual reasoning before it transitions a learner to `VERIFIED_RESOLVED`. A simple correct answer only advances them to `IMPROVING`.
+
+## 14. PYTHON EXECUTION
+
+The deterministic execution sandbox (`lib/execution/CodeVerifier.ts`, `lib/execution/PyodideWorker.ts`, `public/pyodide-worker.js`):
+1. **Student Code:** Entered in the UI.
+2. **Web Worker:** The code is sent to an isolated browser thread.
+3. **Pyodide:** The Python AST is analyzed, and the code is safely executed in WASM.
+4. **Structured Result:** The worker returns stdout, stderr, and AST node extractions.
+5. **Evidence Extraction:** Passed into `lib/evidence/extractor.ts` to build the feature vector.
+
+## 15. PERSISTENCE
+
+Database abstraction via `@supabase/supabase-js` (`lib/db/client.ts`):
+- **Learner State:** Upserts the current `MisconceptionState` (status and evidence history).
+- **Attempts:** Raw code, execution traces, and reasoning.
+- **Evidence:** Extracted feature vectors.
+- **Diagnosis:** Differential engine logs.
+- **Intervention / Reassessment:** Logs which level was provided and the outcome.
+- **DEMO_MODE:** Currently functioning fully. The client defaults to using an in-memory database if `NEXT_PUBLIC_SUPABASE_URL` is omitted, allowing the application to run smoothly without database credentials.
+
+## 16. TESTS
+
+Executed via `npx vitest run`:
+- **Diagnosis Tests:** `tests/diagnosis.test.ts` (8 tests)
+- **Intervention Tests:** `tests/intervention.test.ts` (4 tests)
+- **Persistence/Resolution Tests:** `tests/persistence.test.ts` (5 tests)
+
+**Result:**
+```
+ Test Files  3 passed (3)
+      Tests  17 passed (17)
+```
+All tests verified passing.
+
+## 17. COMPLETE ARCHITECTURE DIAGRAM
+
+```
+Student
+  ↓
+Code + Reasoning
+  ↓
+Pyodide Web Worker
+  ↓
+Deterministic Evidence
+  ↓
+Feature Extraction
+  ↓
+TRAINED MISCONCEPTION MODEL
+  ↓
+Candidate Predictions
+  ↓
+Differential Diagnosis
+  ↓
+DIAGNOSED / ABSTAIN
+  ↓
+Targeted Intervention
+  ↓
+Adaptive Reassessment
+  ↓
+Resolution Engine
+  ↓
+Learner Model / Persistence
+
+[ Supporting Component ]
+LLM API (Friendly Explanations)
+```
+
+## 18. WHAT IS COMPLETE VS WHAT REMAINS
+
+**COMPLETE:**
+- Pyodide WASM execution sandbox.
+- Deterministic feature extraction (AST + execution).
+- Trained Naive Bayes misconception model pipeline.
+- Differential diagnosis engine with ABSTAIN guardrails.
+- Multi-level intervention engine.
+- Correct-Answer Trap reassessment evaluation.
+- Learner state and resolution tracking.
+- Local `DEMO_MODE` persistence.
+- 17 verified passing unit/integration tests.
+
+**REMAINING:**
+- Larger hand-verified dataset.
+- Proper 30–40 example held-out evaluation.
+- Stronger model experiment such as UniXcoder if approved.
+- Broader misconception confusion set.
+- Supabase SQL schema migrations (production enablement).
+- UI polish.
+- Production hardening.
+
+## 19. MENTOR QUESTIONS
+
+1. Should we retain Naive Bayes as the baseline and fine-tune a pretrained code model such as UniXcoder on the misconception dataset?
+2. What dataset size/diversity would be sufficient for convincing held-out evaluation?
+3. Should we expand from M02 into a small confusion set of closely related misconceptions?
+4. Is our separation between the trained misconception model and LLM API appropriate?
+5. What evaluation methodology would best demonstrate that the model generalizes to unseen learner responses?
+
+---
+
+### Summary Report
+- **Trained Model File:** `data/eval/misconception_model_v1.json`
+- **Training Script:** `scripts/train-misconception-model.ts`
+- **Evaluation Script:** `scripts/evaluate-misconception-model.ts`
+- **Dataset Paths:** `data/eval/development.jsonl`, `data/eval/held-out.jsonl`
+- **Current Model Metrics:** Accuracy: 60.00%, Macro-F1: 0.4167 (on a scaffold held-out set of 5).
+- **Test Results:** 17 tests passed across diagnosis, intervention, and persistence.
+- **Current Limitations:** Dataset size is currently a scaffold placeholder; requires large hand-verified dataset for production metrics. Supabase requires final SQL migration. UI is barebones React.
