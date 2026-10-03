@@ -1,5 +1,44 @@
-{"id": "test_01", "features": {"ast_items_1": 1, "output_incorrect_second_element": 1, "reasoning_index_1": 1}, "label": "M02"}
-{"id": "test_02", "features": {"ast_items_1": 1}, "label": "OTHER_UNKNOWN"}
-{"id": "test_03", "features": {"syntax_error": 1, "ast_items_1": 1}, "label": "SYNTAX_ERROR"}
-{"id": "test_04", "features": {"ast_items_1": 1, "output_incorrect_second_element": 1}, "label": "M02"}
-{"id": "test_05", "features": {"runtime_error": 1}, "label": "RUNTIME_ERROR"}
+{"id":"example_002","features":{"output_incorrect_other":1,"ast_items_1":1,"reasoning_index_1":1},"label":"M02"}
+{"id":"example_129","features":{"syntax_error":1,"ast_items_0":1},"label":"SYNTAX_ERROR"}
+{"id":"example_111","features":{"output_incorrect_other":1},"label":"M03"}
+{"id":"example_053","features":{"output_incorrect_second_element":1,"ast_items_1":1},"label":"CARELESS_ERROR"}
+{"id":"example_079","features":{"output_incorrect_other":1},"label":"M01"}
+{"id":"example_040","features":{"output_incorrect_second_element":1,"ast_items_1":1,"reasoning_index_1":1},"label":"M02"}
+{"id":"example_007","features":{"output_incorrect_second_element":1,"ast_items_1":1,"reasoning_index_1":1},"label":"M02"}
+{"id":"example_054","features":{"output_incorrect_second_element":1,"ast_items_1":1},"label":"CAREFUL_CORRECT"}
+{"id":"example_095","features":{"output_incorrect_other":1},"label":"M03"}
+{"id":"example_093","features":{"output_incorrect_other":1},"label":"M03"}
+{"id":"example_143","features":{"output_incorrect_other":1},"label":"OTHER_UNKNOWN"}
+{"id":"example_092","features":{"output_incorrect_other":1,"reasoning_includes_endpoint":1},"label":"M03"}
+{"id":"example_065","features":{"output_incorrect_other":1},"label":"M01"}
+{"id":"example_130","features":{"ast_index_out_of_bounds":1,"runtime_error":1},"label":"RUNTIME_ERROR"}
+{"id":"example_102","features":{"output_incorrect_other":1,"reasoning_includes_endpoint":1},"label":"M03"}
+{"id":"example_021","features":{"output_incorrect_other":1,"ast_items_1":1,"reasoning_index_1":1},"label":"M02"}
+{"id":"example_103","features":{"output_incorrect_other":1},"label":"M03"}
+{"id":"example_123","features":{"syntax_error":1,"ast_items_0":1},"label":"SYNTAX_ERROR"}
+{"id":"example_023","features":{"output_incorrect_other":1,"ast_items_1":1,"reasoning_index_1":1},"label":"M02"}
+{"id":"example_052","features":{"output_incorrect_second_element":1,"ast_items_1":1},"label":"CAREFUL_CORRECT"}
+{"id":"example_077","features":{"output_incorrect_other":1},"label":"M01"}
+{"id":"example_013","features":{"output_incorrect_second_element":1,"ast_items_1":1,"reasoning_index_1":1},"label":"M02"}
+{"id":"example_070","features":{"output_incorrect_other":1,"reasoning_range_starts_1":1},"label":"M01"}
+{"id":"example_140","features":{"output_incorrect_other":1},"label":"OTHER_UNKNOWN"}
+{"id":"example_015","features":{"output_incorrect_other":1,"ast_items_1":1,"reasoning_index_1":1},"label":"M02"}
+{"id":"example_055","features":{"output_incorrect_second_element":1,"ast_items_1":1},"label":"CARELESS_ERROR"}
+{"id":"example_114","features":{"output_incorrect_other":1,"reasoning_includes_endpoint":1},"label":"M03"}
+{"id":"example_016","features":{"output_incorrect_second_element":1,"ast_items_1":1,"reasoning_index_1":1},"label":"M02"}
+{"id":"example_105","features":{"output_incorrect_other":1},"label":"M03"}
+{"id":"example_136","features":{"output_incorrect_other":1},"label":"OTHER_UNKNOWN"}
+{"id":"example_063","features":{"output_incorrect_other":1},"label":"M01"}
+{"id":"example_128","features":{"ast_index_out_of_bounds":1,"runtime_error":1},"label":"RUNTIME_ERROR"}
+{"id":"example_118","features":{"ast_index_out_of_bounds":1,"runtime_error":1},"label":"RUNTIME_ERROR"}
+{"id":"example_142","features":{"output_incorrect_other":1},"label":"OTHER_UNKNOWN"}
+{"id":"example_144","features":{"output_incorrect_other":1},"label":"OTHER_UNKNOWN"}
+{"id":"example_132","features":{"ast_index_out_of_bounds":1,"runtime_error":1},"label":"RUNTIME_ERROR"}
+{"id":"example_141","features":{"output_incorrect_other":1},"label":"OTHER_UNKNOWN"}
+{"id":"example_078","features":{"output_incorrect_other":1,"reasoning_range_starts_1":1},"label":"M01"}
+{"id":"example_030","features":{"output_incorrect_other":1,"ast_items_1":1,"reasoning_index_1":1},"label":"M02"}
+{"id":"example_048","features":{"output_incorrect_second_element":1,"ast_items_1":1},"label":"CAREFUL_CORRECT"}
+{"id":"example_008","features":{"output_incorrect_other":1,"ast_items_1":1,"reasoning_index_1":1},"label":"M02"}
+{"id":"example_056","features":{"output_incorrect_other":1,"reasoning_range_starts_1":1},"label":"M01"}
+{"id":"example_005","features":{"output_incorrect_other":1,"ast_items_1":1,"reasoning_index_1":1},"label":"M02"}
+{"id":"example_050","features":{"output_incorrect_second_element":1,"ast_items_1":1},"label":"CAREFUL_CORRECT"}

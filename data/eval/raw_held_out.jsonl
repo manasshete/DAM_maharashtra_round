@@ -1,0 +1,44 @@
+{"id":"example_002","questionId":"M02","code":"print(days[1])","stdout":"tuesday","stderr":"","errorType":null,"reasoning":"Since it asks for the first day, I put 1.","label":"M02"}
+{"id":"example_129","questionId":"M02","code":"print(items[0]","stdout":"","stderr":"Traceback... SyntaxError","errorType":"SyntaxError","reasoning":"Forgot a parenthesis.","label":"SYNTAX_ERROR"}
+{"id":"example_111","questionId":"M03","code":"my_list[0:3]","stdout":"[a, b, c, d]","stderr":"","errorType":null,"reasoning":"Slice from index 0 to 3 inclusive.","label":"M03"}
+{"id":"example_053","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"Oops I meant 0","label":"CARELESS_ERROR"}
+{"id":"example_079","questionId":"M01","code":"list(range(3))","stdout":"[1, 2, 3]","stderr":"","errorType":null,"reasoning":"It starts at 1 by default.","label":"M01"}
+{"id":"example_040","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"The first element is at index 1.","label":"M02"}
+{"id":"example_007","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"The first element is at index 1.","label":"M02"}
+{"id":"example_054","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"I need the second item so I use index 1.","label":"CAREFUL_CORRECT"}
+{"id":"example_095","questionId":"M03","code":"my_list[0:3]","stdout":"[a, b, c, d]","stderr":"","errorType":null,"reasoning":"Slice from index 0 to 3 inclusive.","label":"M03"}
+{"id":"example_093","questionId":"M03","code":"my_list[0:3]","stdout":"[a, b, c, d]","stderr":"","errorType":null,"reasoning":"Slice from index 0 to 3 inclusive.","label":"M03"}
+{"id":"example_143","questionId":"M02","code":"print(\"hello\")","stdout":"hello","stderr":"","errorType":null,"reasoning":"Just testing.","label":"OTHER_UNKNOWN"}
+{"id":"example_092","questionId":"M03","code":"for i in range(0, 5): print(i)","stdout":"0\n1\n2\n3\n4\n5","stderr":"","errorType":null,"reasoning":"It should include 5.","label":"M03"}
+{"id":"example_065","questionId":"M01","code":"list(range(3))","stdout":"[1, 2, 3]","stderr":"","errorType":null,"reasoning":"It starts at 1 by default.","label":"M01"}
+{"id":"example_130","questionId":"M02","code":"print(items[100])","stdout":"","stderr":"Traceback... IndexError","errorType":"IndexError","reasoning":"I want the last item.","label":"RUNTIME_ERROR"}
+{"id":"example_102","questionId":"M03","code":"for i in range(0, 5): print(i)","stdout":"0\n1\n2\n3\n4\n5","stderr":"","errorType":null,"reasoning":"It should include 5.","label":"M03"}
+{"id":"example_021","questionId":"M02","code":"x = arr[1]","stdout":"second_val","stderr":"","errorType":null,"reasoning":"1 is the first index in Python.","label":"M02"}
+{"id":"example_103","questionId":"M03","code":"my_list[0:3]","stdout":"[a, b, c, d]","stderr":"","errorType":null,"reasoning":"Slice from index 0 to 3 inclusive.","label":"M03"}
+{"id":"example_123","questionId":"M02","code":"print(items[0]","stdout":"","stderr":"Traceback... SyntaxError","errorType":"SyntaxError","reasoning":"Forgot a parenthesis.","label":"SYNTAX_ERROR"}
+{"id":"example_023","questionId":"M02","code":"print(days[1])","stdout":"tuesday","stderr":"","errorType":null,"reasoning":"Since it asks for the first day, I put 1.","label":"M02"}
+{"id":"example_052","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"I need the second item so I use index 1.","label":"CAREFUL_CORRECT"}
+{"id":"example_077","questionId":"M01","code":"list(range(3))","stdout":"[1, 2, 3]","stderr":"","errorType":null,"reasoning":"It starts at 1 by default.","label":"M01"}
+{"id":"example_013","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"The first element is at index 1.","label":"M02"}
+{"id":"example_070","questionId":"M01","code":"for i in range(5): print(i)","stdout":"1\n2\n3\n4\n5","stderr":"","errorType":null,"reasoning":"range(5) counts from 1 to 5.","label":"M01"}
+{"id":"example_140","questionId":"M02","code":"print(\"hello\")","stdout":"hello","stderr":"","errorType":null,"reasoning":"Just testing.","label":"OTHER_UNKNOWN"}
+{"id":"example_015","questionId":"M02","code":"x = arr[1]","stdout":"second_val","stderr":"","errorType":null,"reasoning":"1 is the first index in Python.","label":"M02"}
+{"id":"example_055","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"Oops I meant 0","label":"CARELESS_ERROR"}
+{"id":"example_114","questionId":"M03","code":"for i in range(0, 5): print(i)","stdout":"0\n1\n2\n3\n4\n5","stderr":"","errorType":null,"reasoning":"It should include 5.","label":"M03"}
+{"id":"example_016","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"The first element is at index 1.","label":"M02"}
+{"id":"example_105","questionId":"M03","code":"my_list[0:3]","stdout":"[a, b, c, d]","stderr":"","errorType":null,"reasoning":"Slice from index 0 to 3 inclusive.","label":"M03"}
+{"id":"example_136","questionId":"M02","code":"print(\"hello\")","stdout":"hello","stderr":"","errorType":null,"reasoning":"Just testing.","label":"OTHER_UNKNOWN"}
+{"id":"example_063","questionId":"M01","code":"list(range(3))","stdout":"[1, 2, 3]","stderr":"","errorType":null,"reasoning":"It starts at 1 by default.","label":"M01"}
+{"id":"example_128","questionId":"M02","code":"print(items[100])","stdout":"","stderr":"Traceback... IndexError","errorType":"IndexError","reasoning":"I want the last item.","label":"RUNTIME_ERROR"}
+{"id":"example_118","questionId":"M02","code":"print(items[100])","stdout":"","stderr":"Traceback... IndexError","errorType":"IndexError","reasoning":"I want the last item.","label":"RUNTIME_ERROR"}
+{"id":"example_142","questionId":"M02","code":"print(\"hello\")","stdout":"hello","stderr":"","errorType":null,"reasoning":"Just testing.","label":"OTHER_UNKNOWN"}
+{"id":"example_144","questionId":"M02","code":"print(\"hello\")","stdout":"hello","stderr":"","errorType":null,"reasoning":"Just testing.","label":"OTHER_UNKNOWN"}
+{"id":"example_132","questionId":"M02","code":"print(items[100])","stdout":"","stderr":"Traceback... IndexError","errorType":"IndexError","reasoning":"I want the last item.","label":"RUNTIME_ERROR"}
+{"id":"example_141","questionId":"M02","code":"print(\"hello\")","stdout":"hello","stderr":"","errorType":null,"reasoning":"Just testing.","label":"OTHER_UNKNOWN"}
+{"id":"example_078","questionId":"M01","code":"for i in range(5): print(i)","stdout":"1\n2\n3\n4\n5","stderr":"","errorType":null,"reasoning":"range(5) counts from 1 to 5.","label":"M01"}
+{"id":"example_030","questionId":"M02","code":"x = arr[1]","stdout":"second_val","stderr":"","errorType":null,"reasoning":"1 is the first index in Python.","label":"M02"}
+{"id":"example_048","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"I need the second item so I use index 1.","label":"CAREFUL_CORRECT"}
+{"id":"example_008","questionId":"M02","code":"print(days[1])","stdout":"tuesday","stderr":"","errorType":null,"reasoning":"Since it asks for the first day, I put 1.","label":"M02"}
+{"id":"example_056","questionId":"M01","code":"for i in range(5): print(i)","stdout":"1\n2\n3\n4\n5","stderr":"","errorType":null,"reasoning":"range(5) counts from 1 to 5.","label":"M01"}
+{"id":"example_005","questionId":"M02","code":"print(days[1])","stdout":"tuesday","stderr":"","errorType":null,"reasoning":"Since it asks for the first day, I put 1.","label":"M02"}
+{"id":"example_050","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"I need the second item so I use index 1.","label":"CAREFUL_CORRECT"}

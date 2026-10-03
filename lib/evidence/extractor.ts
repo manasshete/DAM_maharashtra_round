@@ -62,5 +62,13 @@ export function extractFeatures(input: EvidenceExtractionInput): FeatureVector {
     features["reasoning_off_by_one"] = 1;
   }
 
+  // M01 & M03 reasoning features
+  if (textToAnalyze.includes("range") && (textToAnalyze.includes("starts at 1") || textToAnalyze.includes("from 1"))) {
+    features["reasoning_range_starts_1"] = 1;
+  }
+  if (textToAnalyze.includes("include") && (textToAnalyze.includes("endpoint") || textToAnalyze.match(/[0-9]+/))) {
+    features["reasoning_includes_endpoint"] = 1;
+  }
+
   return features;
 }
