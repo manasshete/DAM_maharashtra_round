@@ -9,51 +9,55 @@ Re:Learn is an **AI-powered, misconception-aware introductory programming tutor*
 - **Adaptive Interventions:** Four levels of escalated support: Hint → Explanation → Worked Example → Guided Practice.
 - **Strict Resolution Flow:** A single correct answer is not enough. Re:Learn implements a "Correct-Answer Trap," requiring clean direct execution, clean transfer execution, and correct conceptual reasoning before marking a learner as `VERIFIED_RESOLVED`.
 
-## 🏗️ Architecture
+## 🏗️ Architecture & Lifecycle
 
 ```mermaid
 flowchart TD
-    A([Student: Code + Reasoning]) --> B[Pyodide Web Worker]
-    B --> C(Deterministic Evidence Extractor)
-    
-    subgraph Diagnosis Engine
-        C -->|Feature Vector| D{Trained Misconception Model}
+    %% Define Styles
+    classDef default fill:#f9fafb,stroke:#e5e7eb,stroke-width:1px,color:#374151
+    classDef stage fill:#ede9fe,stroke:#8b5cf6,stroke-width:2px,color:#4c1d95,font-weight:bold
+    classDef model fill:#f0fdf4,stroke:#22c55e,stroke-width:2px,color:#14532d,font-weight:bold
+    classDef persistent fill:#e0f2fe,stroke:#0ea5e9,stroke-width:2px,color:#0c4a6e,font-weight:bold
+
+    subgraph ReLearn Lifecycle
+        direction TB
+        
+        A[1. Learner Attempt<br/>Code + Reasoning]:::stage --> B[2. Evidence Extraction<br/>Pyodide + AST Analysis]:::stage
+        
+        B --> C(Differential Diagnosis Engine)
+        
+        C -->|Feature Vector| D{Trained Misconception Model}:::model
         D -->|Candidate Prediction| E[Differential Guardrails]
-        E -->|Strict Logic Check| F([DIAGNOSED / ABSTAIN])
-    end
-    
-    F --> G[Targeted Intervention Engine]
-    G --> H[Adaptive Reassessment]
-    
-    subgraph Resolution Model
+        E -->|Strict Logic Check| F([3. DIAGNOSED / ABSTAIN]):::stage
+        
+        F -->|If Diagnosed| G[4. Targeted Intervention]:::stage
+        G --> H[5. Adaptive Reassessment<br/>Direct & Transfer]:::stage
+        
         H --> I{Correct-Answer Trap Evaluator}
-        I -->|Direct + Transfer + Reasoning Passed| J([VERIFIED RESOLVED])
-        I -->|Contradictory Reasoning / Repeated Failure| K([PERSISTENT])
+        I -->|Direct + Transfer + Reasoning Passed| J([6. VERIFIED RESOLVED]):::stage
+        I -->|Contradictory Reasoning / Repeated Failure| K([PERSISTENT]):::stage
     end
     
-    J --> L[(Supabase Persistence)]
+    J --> L[(Supabase Persistence)]:::persistent
     K --> L
     
     LLM[LLM API] -.->|Friendly Explanations only| F
     
-    style A fill:#e1f5fe,stroke:#01579b
-    style F fill:#c8e6c9,stroke:#1b5e20
-    style J fill:#c8e6c9,stroke:#1b5e20
-    style LLM fill:#fff3e0,stroke:#e65100,stroke-dasharray: 5 5
+    style LLM fill:#fff7ed,stroke:#ea580c,stroke-dasharray: 5 5,color:#9a3412
 ```
 
 ## 🧠 Evaluation Results
 
 ### Dataset
-- **145 Total Examples** (101 Development / 44 Held-out)
+- **145 Total Examples** (101 Development / 44 Held-out) + **10 Contrastive Examples** for enhanced boundary learning.
 
-### Model Baselines
-- **Naive Bayes (Production Active):** 61.36% Accuracy | 0.4864 Macro-F1
+### Model Baselines (Phase 3 Updates)
+- **Naive Bayes (Production Active):** **90.91% Accuracy** | **0.8558 Macro-F1** 
+  *(Massively improved through error-driven dataset engineering, focusing on distinguishing CARELESS vs CAREFUL reasoning).*
 - **UniXcoder (Phase 2D Experimental):** 63.64% Accuracy | 0.4268 Macro-F1
+  *(Experimental code-aware model; prone to majority-class collapse without larger dataset).*
 
-*Note: While the UniXcoder model proved incredibly powerful at extracting and anchoring on reasoning blocks (achieving 100% recall for core misconceptions), it was prone to majority-class collapse without a significantly larger and more balanced dataset. Therefore, the deterministic baseline model remains the active production diagnostic core.*
-
-### Full-System Diagnostics (Phase 2E.1)
+### Full-System Diagnostics
 - **Diagnosis Accuracy:** 100%
 - **Correct Abstention:** 100%
 - **False Diagnosis Rate:** 0%
