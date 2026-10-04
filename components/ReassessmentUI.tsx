@@ -193,9 +193,37 @@ export default function ReassessmentUI() {
   return (
     <div className="max-w-5xl mx-auto space-y-8 pb-20">
       {/* HEADER */}
-      <div className="border-b pb-4">
-        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">RE:LEARN</h1>
-        <p className="text-slate-500 font-medium mt-1">AI Misconception-Aware Programming Tutor</p>
+      <div className="border-b border-slate-200 pb-8 pt-4 text-center">
+        <div className="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 font-bold tracking-widest text-xs rounded-full mb-3">JUDGE DEMO DASHBOARD</div>
+        <h1 className="text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600">RE:LEARN</h1>
+        <p className="text-slate-500 font-medium mt-3 text-lg">AI Misconception-Aware Programming Tutor</p>
+      </div>
+
+      {/* LIFECYCLE PROGRESS */}
+      <div className="w-full bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 text-center">Re:Learn Lifecycle</h3>
+        <div className="flex items-center justify-between relative">
+          <div className="absolute left-0 right-0 top-1/2 h-1 bg-slate-100 -z-10 -translate-y-1/2"></div>
+          
+          {[
+            { id: "Attempt", label: "Learner Attempt", completed: !!execResultData },
+            { id: "Evidence", label: "Evidence", completed: lastFeatures.length > 0 },
+            { id: "Diagnosis", label: "Diagnosis", completed: !!diagnosisData },
+            { id: "Intervention", label: "Intervention", completed: !!interventionText },
+            { id: "Reassessment", label: "Reassessment", completed: learnerState.status === "IMPROVING" || learnerState.status === "VERIFIED_RESOLVED" || learnerState.status === "LIKELY_RESOLVED" },
+            { id: "Resolution", label: "Resolution", completed: learnerState.status === "VERIFIED_RESOLVED" }
+          ].map((step, idx, arr) => {
+            const isActive = !step.completed && (idx === 0 || arr[idx - 1].completed);
+            return (
+            <div key={step.id} className="flex flex-col items-center gap-2 relative bg-white px-2">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-colors ${step.completed ? 'bg-indigo-600 border-indigo-600 text-white shadow-md' : isActive ? 'bg-indigo-50 border-indigo-600 text-indigo-700 shadow-sm ring-2 ring-indigo-200' : 'bg-white border-slate-300 text-slate-400'}`}>
+                {step.completed ? "✓" : (idx + 1)}
+              </div>
+              <span className={`text-xs font-bold uppercase tracking-wider ${step.completed ? 'text-indigo-700' : isActive ? 'text-indigo-600' : 'text-slate-400'}`}>{step.label}</span>
+            </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* DEMO CONTROLS */}

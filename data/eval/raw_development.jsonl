@@ -99,3 +99,14 @@
 {"id":"example_122","questionId":"M02","code":"print(items[100])","stdout":"","stderr":"Traceback... IndexError","errorType":"IndexError","reasoning":"I want the last item.","label":"RUNTIME_ERROR"}
 {"id":"example_024","questionId":"M02","code":"x = arr[1]","stdout":"second_val","stderr":"","errorType":null,"reasoning":"1 is the first index in Python.","label":"M02"}
 {"id":"example_039","questionId":"M02","code":"x = arr[1]","stdout":"second_val","stderr":"","errorType":null,"reasoning":"1 is the first index in Python.","label":"M02"}
+
+{"id":"example_c1","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"Oops I made a mistake, I meant 0.","label":"CARELESS_ERROR"}
+{"id":"example_c2","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"It was a typo, meant to write 0","label":"CARELESS_ERROR"}
+{"id":"example_c3","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"My mistake, I meant index 0 for the first element.","label":"CARELESS_ERROR"}
+{"id":"example_c4","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"Accidentally typed 1.","label":"CARELESS_ERROR"}
+{"id":"example_c5","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"I need the second item, so index 1.","label":"CAREFUL_CORRECT"}
+{"id":"example_c6","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"Because we want the second item, use index 1.","label":"CAREFUL_CORRECT"}
+{"id":"example_c7","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"Getting the second item at index 1.","label":"CAREFUL_CORRECT"}
+{"id":"example_c8","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"Just testing something out.","label":"OTHER_UNKNOWN"}
+{"id":"example_c9","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"I don't know.","label":"OTHER_UNKNOWN"}
+{"id":"example_c10","questionId":"M02","code":"print(items[1])","stdout":"banana","stderr":"","errorType":null,"reasoning":"Random guess.","label":"OTHER_UNKNOWN"}

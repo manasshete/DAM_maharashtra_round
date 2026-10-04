@@ -62,12 +62,23 @@ export function extractFeatures(input: EvidenceExtractionInput): FeatureVector {
     features["reasoning_off_by_one"] = 1;
   }
 
-  // M01 & M03 reasoning features
   if (textToAnalyze.includes("range") && (textToAnalyze.includes("starts at 1") || textToAnalyze.includes("from 1"))) {
     features["reasoning_range_starts_1"] = 1;
   }
-  if (textToAnalyze.includes("include") && (textToAnalyze.includes("endpoint") || textToAnalyze.match(/[0-9]+/))) {
+  if ((textToAnalyze.includes("include") || textToAnalyze.includes("inclus")) && (textToAnalyze.includes("endpoint") || textToAnalyze.match(/[0-9]+/))) {
     features["reasoning_includes_endpoint"] = 1;
+  }
+  
+  if (textToAnalyze.includes("oops") || textToAnalyze.includes("typo") || textToAnalyze.includes("mistake") || textToAnalyze.includes("accident") || textToAnalyze.includes("meant 0")) {
+    features["reasoning_careless"] = 1;
+  }
+
+  if (textToAnalyze.includes("second item") || textToAnalyze.includes("need") || textToAnalyze.includes("index 1")) {
+    features["reasoning_careful"] = 1;
+  }
+  
+  if (textToAnalyze.includes("just testing") || textToAnalyze.includes("don't know") || textToAnalyze.includes("random")) {
+    features["reasoning_unknown"] = 1;
   }
 
   return features;
