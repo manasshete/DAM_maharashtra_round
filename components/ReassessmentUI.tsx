@@ -51,6 +51,88 @@ const SCENARIOS = [
   }
 ];
 
+function printJudgeTraceInitial(data: any) {
+  if (!data.isJudgeTrace) return;
+
+  console.groupCollapsed("%c━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nRE:LEARN · ML DIAGNOSIS TRACE\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", "color:#8b5cf6; font-weight:bold");
+  
+  console.group("%c[ATTEMPT]", "font-weight:bold");
+  console.log(`Question: ${data.question?.id} (${data.question?.concept})`);
+  console.log(`Code:\n${data.code}`);
+  console.log(`Reasoning: ${data.reasoning || '(none)'}`);
+  console.groupEnd();
+
+  console.group("%c[EVIDENCE]", "font-weight:bold");
+  console.log("Extracted AST, execution, and reasoning indicators.");
+  console.groupEnd();
+
+  console.group("%c[FEATURES]", "font-weight:bold");
+  if (data.features) {
+    const ev = Object.entries(data.features).filter(([_, v]) => v).map(([k]) => ({ Feature: k }));
+    if (ev.length) {
+      console.table(ev);
+    } else {
+      console.log("No significant evidence extracted.");
+    }
+  }
+  console.groupEnd();
+
+  console.group("%c[MODEL]", "font-weight:bold");
+  console.log("Model: NaiveBayes · misconception_model_v1");
+  console.groupEnd();
+
+  console.group("%c[CANDIDATES]", "font-weight:bold");
+  if (data.modelPrediction?.probabilities) {
+    const sorted = Object.entries(data.modelPrediction.probabilities)
+      .sort((a, b) => (b[1] as number) - (a[1] as number))
+      .map(([m, p], idx) => ({ Misconception: m, Score: (p as number).toFixed(4), Rank: idx + 1 }));
+    console.table(sorted);
+  }
+  console.groupEnd();
+  
+  if (data.modelPrediction?.prediction) {
+    console.group(`%c[TOP PREDICTION]`, "font-weight:bold");
+    console.log(`Candidate: ${data.modelPrediction.prediction}`);
+    console.log(`Score: ${(data.modelPrediction.probabilities[data.modelPrediction.prediction] || 0).toFixed(4)}`);
+    console.groupEnd();
+  }
+
+  console.group("%c[DIFFERENTIAL DIAGNOSIS]", "font-weight:bold");
+  console.log(`Candidate: ${data.diagnosis?.candidateId || 'None'}`);
+  console.log(`Status: ${data.diagnosis?.status}`);
+  console.log(`Decision: ${data.diagnosis?.explanation || 'N/A'}`);
+  console.groupEnd();
+
+  console.group("%c[INTERVENTION]", "font-weight:bold");
+  if (data.intervention) {
+    console.log(`Intervention Type: DIRECT_EXPLANATION`);
+    console.log(`Target: ${data.diagnosis?.candidateId || "M02"}`);
+    console.log(`Explanation Source: Extracted from intervention engine rules`);
+  } else {
+    console.log("No intervention delivered.");
+  }
+  console.groupEnd();
+  
+  console.groupEnd();
+}
+
+function printJudgeTraceReassessment(data: any) {
+  if (!data.isJudgeTrace) return;
+
+  console.groupCollapsed(`%c[REASSESSMENT] - ${data.type}`, "font-weight:bold; color:#10b981;");
+  console.log(`Event Type: ${data.evalEvent?.type}`);
+  console.log(`Direct/Transfer Result: ${data.evalEvent?.result?.isCorrect ? 'Correct' : 'Incorrect'}`);
+  console.log(`Reasoning Result: ${data.evalEvent?.result?.hasMisconceptionReasoning ? 'Misconception Persists' : 'Misconception Resolved'}`);
+  console.groupEnd();
+
+  console.groupCollapsed("%c[RESOLUTION]", "font-weight:bold; color:#f59e0b;");
+  console.log(`Previous State: ${data.oldState?.status}`);
+  console.log(`Event: ${data.evalEvent?.type}`);
+  console.log(`New State: ${data.newState?.status}`);
+  console.log(`Simulated Retention Pending: ${data.newState?.status === 'LIKELY_RESOLVED' ? 'Yes' : 'No'}`);
+  console.groupEnd();
+}
+
 export default function ReassessmentUI() {
   const [selectedScenario, setSelectedScenario] = useState(SCENARIOS[0].id);
   const [code, setCode] = useState(SCENARIOS[0].code);
@@ -71,6 +153,14 @@ export default function ReassessmentUI() {
   const [reassessDirectReasoning, setReassessDirectReasoning] = useState(`first item is index 0`);
   const [reassessTransferCode, setReassessTransferCode] = useState(`letters = ["A", "B", "C"]\nprint(letters[0])`);
   const [reassessTransferReasoning, setReassessTransferReasoning] = useState(`index 0 is first`);
+  
+  const [isJudgeTrace, setIsJudgeTrace] = useState(false);
+
+  useEffect(() => {
+    if (process.env.NEXT_PUBLIC_JUDGE_TRACE === 'true' || (typeof window !== 'undefined' && (window as any).JUDGE_TRACE)) {
+      setIsJudgeTrace(true);
+    }
+  }, []);
 
   useEffect(() => {
     const scenario = SCENARIOS.find(s => s.id === selectedScenario);
@@ -142,9 +232,26 @@ export default function ReassessmentUI() {
     const newState = transitionMisconceptionState(learnerState, event);
     setLearnerState(newState);
 
+    let finalIntervention = null;
     if (newState.status === "DIAGNOSED") {
       const engine = new InterventionEngine();
-      setIntervention(engine.getIntervention(diffDiagnosis.candidateId || "M02"));
+      finalIntervention = engine.getIntervention(diffDiagnosis.candidateId || "M02");
+      setIntervention(finalIntervention);
+    }
+    
+    let rawPrediction = null;
+    if (isJudgeTrace) {
+      rawPrediction = classifier.predict(features);
+      printJudgeTraceInitial({
+        isJudgeTrace,
+        question: M02_QUESTION,
+        code,
+        reasoning,
+        features,
+        modelPrediction: rawPrediction,
+        diagnosis: diffDiagnosis,
+        intervention: finalIntervention
+      });
     }
     
     setVisualStage("EVIDENCE_DIAGNOSIS");
@@ -193,6 +300,17 @@ export default function ReassessmentUI() {
     });
     
     const newState = transitionMisconceptionState(learnerState, evalEvent);
+    
+    if (isJudgeTrace) {
+      printJudgeTraceReassessment({
+        isJudgeTrace,
+        type: "DIRECT",
+        evalEvent,
+        oldState: learnerState,
+        newState
+      });
+    }
+
     setLearnerState(newState);
     
     setVisualStage(newState.status === "PERSISTENT" ? "INTERVENTION" : "REASSESS_DIRECT");
@@ -235,6 +353,17 @@ export default function ReassessmentUI() {
     });
     
     const newState = transitionMisconceptionState(learnerState, evalEvent);
+    
+    if (isJudgeTrace) {
+      printJudgeTraceReassessment({
+        isJudgeTrace,
+        type: "TRANSFER",
+        evalEvent,
+        oldState: learnerState,
+        newState
+      });
+    }
+
     setLearnerState(newState);
     
     setVisualStage("RESOLUTION");
@@ -261,6 +390,11 @@ export default function ReassessmentUI() {
             </div>
           </div>
           <div className="pointer-events-auto flex gap-4 items-center">
+            {isJudgeTrace && (
+              <span className="px-3 py-1 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-400 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 shadow-[0_0_15px_rgba(249,115,22,0.2)]">
+                Judge Trace: ON
+              </span>
+            )}
             <span className="px-3 py-1 rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-400 text-xs font-semibold uppercase tracking-wider flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse"></span>
               Demo Mode
@@ -315,16 +449,47 @@ export default function ReassessmentUI() {
                   </div>
 
                   <div className="bg-[#12121A] rounded-[24px] border border-white/5 p-6 space-y-6">
-                    <p className="text-white font-medium">"Print the first item from this list."</p>
-                    
-                    <div className="bg-[#050505] rounded-[16px] p-4 border border-white/5 font-mono text-sm text-slate-300">
-                      <pre><code>{code}</code></pre>
+                    <div className="space-y-2">
+                      <p className="text-white font-medium text-lg leading-relaxed">
+                        What is the correct way to print the very first item from this list?
+                      </p>
+                      <div className="bg-[#050505] rounded-[12px] p-4 border border-white/5 font-mono text-sm text-slate-300">
+                        items = ["apple", "banana", "cherry"]
+                      </div>
                     </div>
+                    
+                    <div className="space-y-3">
+                      <label className="text-xs uppercase tracking-widest text-slate-500 font-semibold mb-2 block">Select your answer:</label>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {[
+                          { val: 'print(items[0])', label: 'print(items[0])' },
+                          { val: 'print(items[1])', label: 'print(items[1])' },
+                          { val: 'print(items["first"])', label: 'print(items["first"])' },
+                          { val: 'print(items[-1])', label: 'print(items[-1])' }
+                        ].map(opt => (
+                          <button
+                            key={opt.val}
+                            onClick={() => setCode(`items = ["apple", "banana", "cherry"]\n${opt.val}`)}
+                            className={`text-left p-4 rounded-[16px] border transition-all ${code.includes(opt.val) ? 'bg-[#1A1A24] border-violet-500/50 shadow-[0_0_15px_rgba(124,58,237,0.15)]' : 'bg-[#050505] border-white/5 hover:border-white/20'}`}
+                          >
+                            <div className="font-mono text-sm text-slate-200">{opt.label}</div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    
+
 
                     <div className="space-y-2">
                       <label className="text-xs uppercase tracking-widest text-slate-500 font-semibold">Student Reasoning</label>
-                      <div className="bg-[#050505] rounded-[16px] p-4 border border-white/5 text-sm text-slate-300">
-                        {reasoning || <span className="text-slate-600 italic">No reasoning provided</span>}
+                      <div className="bg-[#050505] rounded-[16px] border border-white/5 text-sm text-slate-300 overflow-hidden">
+                        <input 
+                          type="text"
+                          value={reasoning}
+                          onChange={(e) => setReasoning(e.target.value)}
+                          placeholder="Explain your thought process (optional)..."
+                          className="w-full bg-transparent p-4 outline-none"
+                        />
                       </div>
                     </div>
 
@@ -336,21 +501,7 @@ export default function ReassessmentUI() {
                     </button>
                   </div>
 
-                  <div className="mt-12 pt-8 border-t border-white/5">
-                    <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Demo Cases</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {SCENARIOS.map(s => (
-                        <button
-                          key={s.id}
-                          onClick={() => setSelectedScenario(s.id)}
-                          className={`text-left p-4 rounded-[18px] border transition-all ${selectedScenario === s.id ? 'bg-[#1A1A24] border-violet-500/30' : 'bg-[#12121A] border-transparent hover:bg-[#1A1A24]'}`}
-                        >
-                          <div className="font-semibold text-sm text-slate-200">{s.label}</div>
-                          <div className="text-xs text-slate-500 mt-1">{s.subtitle}</div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+
                 </motion.div>
               )}
 
@@ -399,6 +550,13 @@ export default function ReassessmentUI() {
                            ) : null)}
                         </ul>
                       </div>
+                      
+                      <button 
+                        onClick={handleReset}
+                        className="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold py-4 rounded-[16px] transition-colors mt-6"
+                      >
+                        Try Again
+                      </button>
                     </div>
                   ) : (
                     <>
@@ -465,6 +623,11 @@ export default function ReassessmentUI() {
                   <div className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Targeted Lesson</div>
                   
                   <div className="bg-[#12121A] rounded-[24px] border border-white/5 p-8 text-center space-y-8">
+                    {learnerState.status === "PERSISTENT" && (
+                      <div className="bg-orange-500/10 border border-orange-500/30 text-orange-400 p-4 rounded-xl text-sm font-semibold mb-4">
+                        Oops! You made the same mistake again. Let's review the concept.
+                      </div>
+                    )}
                     <h2 className="text-2xl font-bold text-white">Let's fix this</h2>
                     
                     <div className="flex justify-center gap-4 text-lg font-mono bg-black/30 p-6 rounded-[16px] inline-flex border border-white/5">
@@ -522,14 +685,51 @@ export default function ReassessmentUI() {
                       </span>
                     </div>
                     
-                    <div className="bg-[#050505] rounded-[16px] p-4 border border-white/5 font-mono text-sm text-slate-300">
-                      <pre><code>{visualStage === "REASSESS_DIRECT" ? reassessDirectCode : reassessTransferCode}</code></pre>
+                    <div className="space-y-2">
+                      <div className="bg-[#050505] rounded-[12px] p-4 border border-white/5 font-mono text-sm text-slate-300">
+                        {visualStage === "REASSESS_DIRECT" ? 'days = ["monday", "tuesday", "wednesday"]' : 'letters = ["a", "b", "c"]'}
+                      </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <label className="text-xs uppercase tracking-widest text-slate-500 font-semibold">Student Reasoning</label>
-                      <div className="bg-[#050505] rounded-[16px] p-4 border border-white/5 text-sm text-slate-300">
-                        {visualStage === "REASSESS_DIRECT" ? reassessDirectReasoning : reassessTransferReasoning}
+                    <div className="space-y-3">
+                      <label className="text-xs uppercase tracking-widest text-slate-500 font-semibold mb-2 block">Select your answer:</label>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {visualStage === "REASSESS_DIRECT" ? [
+                          { val: 'print(days[0])', label: 'print(days[0])' },
+                          { val: 'print(days[1])', label: 'print(days[1])' }
+                        ].map(opt => (
+                          <button
+                            key={opt.val}
+                            onClick={() => setReassessDirectCode(`days = ["monday", "tuesday", "wednesday"]\n${opt.val}`)}
+                            className={`text-left p-4 rounded-[16px] border transition-all ${reassessDirectCode.includes(opt.val) ? 'bg-[#1A1A24] border-violet-500/50 shadow-[0_0_15px_rgba(124,58,237,0.15)]' : 'bg-[#050505] border-white/5 hover:border-white/20'}`}
+                          >
+                            <div className="font-mono text-sm text-slate-200">{opt.label}</div>
+                          </button>
+                        )) : [
+                          { val: 'print(letters[0])', label: 'print(letters[0])' },
+                          { val: 'print(letters[1])', label: 'print(letters[1])' }
+                        ].map(opt => (
+                          <button
+                            key={opt.val}
+                            onClick={() => setReassessTransferCode(`letters = ["a", "b", "c"]\n${opt.val}`)}
+                            className={`text-left p-4 rounded-[16px] border transition-all ${reassessTransferCode.includes(opt.val) ? 'bg-[#1A1A24] border-violet-500/50 shadow-[0_0_15px_rgba(124,58,237,0.15)]' : 'bg-[#050505] border-white/5 hover:border-white/20'}`}
+                          >
+                            <div className="font-mono text-sm text-slate-200">{opt.label}</div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2 mt-6">
+                      <label className="text-xs uppercase tracking-widest text-slate-500 font-semibold">Why did you choose that?</label>
+                      <div className="bg-[#050505] rounded-[16px] border border-white/5 text-sm text-slate-300 overflow-hidden">
+                        <input 
+                          type="text"
+                          value={visualStage === "REASSESS_DIRECT" ? reassessDirectReasoning : reassessTransferReasoning}
+                          onChange={(e) => visualStage === "REASSESS_DIRECT" ? setReassessDirectReasoning(e.target.value) : setReassessTransferReasoning(e.target.value)}
+                          placeholder="Explain your thought process (optional)..."
+                          className="w-full bg-transparent p-4 outline-none"
+                        />
                       </div>
                     </div>
                     
@@ -554,20 +754,31 @@ export default function ReassessmentUI() {
                        </div>
                     </div>
 
-                    <button 
-                      onClick={visualStage === "REASSESS_DIRECT" ? runReassessmentDirect : runReassessmentTransfer}
-                      className="w-full bg-violet-600 hover:bg-violet-500 text-white font-semibold py-4 rounded-[16px] transition-colors"
-                    >
-                      Analyze {visualStage === "REASSESS_DIRECT" ? "Direct" : "Transfer"} Check
-                    </button>
+                    {!(learnerState.status === "IMPROVING" && visualStage === "REASSESS_DIRECT") && (
+                      <button 
+                        onClick={visualStage === "REASSESS_DIRECT" ? runReassessmentDirect : runReassessmentTransfer}
+                        className="w-full bg-violet-600 hover:bg-violet-500 text-white font-semibold py-4 rounded-[16px] transition-colors"
+                      >
+                        Analyze {visualStage === "REASSESS_DIRECT" ? "Direct" : "Transfer"} Check
+                      </button>
+                    )}
                     
                     {learnerState.status === "IMPROVING" && visualStage === "REASSESS_DIRECT" && (
-                      <button 
-                        onClick={handleContinueToReassessmentTransfer}
-                        className="w-full bg-white hover:bg-slate-100 text-black font-semibold py-4 rounded-[16px] transition-colors mt-2"
-                      >
-                        Pass! Continue to Transfer Check
-                      </button>
+                      <div className="bg-emerald-900/20 border border-emerald-500/30 rounded-[16px] p-6 text-center space-y-4">
+                        <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto">
+                          <CheckCircle2 className="w-6 h-6 text-emerald-400" />
+                        </div>
+                        <div>
+                          <h3 className="text-emerald-400 font-bold text-lg">Great job!</h3>
+                          <p className="text-slate-300 text-sm mt-1">You correctly applied the concept to a similar problem.</p>
+                        </div>
+                        <button 
+                          onClick={handleContinueToReassessmentTransfer}
+                          className="w-full bg-white hover:bg-slate-100 text-black font-semibold py-3 rounded-[12px] transition-colors mt-2"
+                        >
+                          Continue to Transfer Check
+                        </button>
+                      </div>
                     )}
                   </div>
                 </motion.div>
