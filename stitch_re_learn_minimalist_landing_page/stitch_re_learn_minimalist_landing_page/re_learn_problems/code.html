@@ -1,0 +1,565 @@
+<!DOCTYPE html><html lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"primary-fixed-dim":"#abc7ff","on-secondary":"#ffffff","surface-variant":"#e2e2e4","primary-container":"#0071e3","code-surface":"#F6F8FA","outline-variant":"#c1c6d6","on-primary-container":"#fcfbff","surface-dim":"#d9dadc","border-strong":"#D1D1D6","tertiary-fixed":"#e3e2e7","state-success":"#34C759","surface-base":"#FBFBFD","primary":"#0059b5","on-error-container":"#93000a","surface-container-low":"#f3f3f5","inverse-surface":"#2f3132","code-border":"#E1E4E8","state-error":"#FF3B30","on-surface":"#1a1c1d","secondary-container":"#e2dfe1","surface-elevated":"#FFFFFF","surface-container-highest":"#e2e2e4","text-primary":"#1D1D1F","state-warning-subtle":"#FEF7E8","surface-subtle":"#F5F5F7","on-primary-fixed":"#001b3f","outline":"#717785","error":"#ba1a1a","inverse-primary":"#abc7ff","on-tertiary-fixed-variant":"#46464b","surface":"#f9f9fb","surface-container-lowest":"#ffffff","state-warning":"#F5A623","tertiary-fixed-dim":"#c7c6cb","on-secondary-container":"#636264","text-secondary":"#86868B","state-success-subtle":"#EBF9EE","tertiary-container":"#737378","on-tertiary-container":"#fcfaff","on-tertiary-fixed":"#1a1b1f","surface-bright":"#f9f9fb","tertiary":"#5a5b5f","on-tertiary":"#ffffff","secondary-fixed":"#e4e2e4","border-subtle":"#E5E5EA","primary-fixed":"#d7e2ff","surface-container-high":"#e8e8ea","on-primary-fixed-variant":"#00458f","text-tertiary":"#A1A1A6","on-primary":"#ffffff","background":"#f9f9fb","state-error-subtle":"#FFECEB","on-background":"#1a1c1d","secondary":"#5f5e60","on-secondary-fixed-variant":"#474649","inverse-on-surface":"#f0f0f2","surface-tint":"#005cbb","on-secondary-fixed":"#1b1b1d","on-error":"#ffffff","secondary-fixed-dim":"#c8c6c8","surface-container":"#edeef0","error-container":"#ffdad6","on-surface-variant":"#414753"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xl":"2.5rem","space-sm":"0.5rem","space-xs":"0.25rem","space-lg":"1.5rem","space-3xl":"6rem","margin-mobile":"1.25rem","space-2xl":"4rem","gutter":"1.5rem","gutter-mobile":"1rem","margin":"3rem","space-md":"1rem"},"fontFamily":{"headline-xl":["Inter"],"display-hero-mobile":["Inter"],"body-md":["Inter"],"body-lg":["Inter"],"headline-xl-mobile":["Inter"],"headline-lg":["Inter"],"label-code-editor":["JetBrains Mono"],"eyebrow":["Inter"],"body-sm":["Inter"],"display-hero":["Inter"],"headline-sm":["Inter"],"label-code-inline":["JetBrains Mono"],"label-ui":["Inter"]},"fontSize":{"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.025em","fontWeight":"600"}],"display-hero-mobile":["36px",{"lineHeight":"42px","letterSpacing":"-0.025em","fontWeight":"700"}],"body-md":["15px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"400"}],"body-lg":["18px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"400"}],"headline-xl-mobile":["28px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-code-editor":["14px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"400"}],"eyebrow":["12px",{"lineHeight":"16px","letterSpacing":"0.08em","fontWeight":"700"}],"body-sm":["13px",{"lineHeight":"20px","fontWeight":"400"}],"display-hero":["56px",{"lineHeight":"64px","letterSpacing":"-0.03em","fontWeight":"700"}],"headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"-0.015em","fontWeight":"600"}],"label-code-inline":["13px",{"lineHeight":"18px","fontWeight":"500"}],"label-ui":["14px",{"lineHeight":"20px","letterSpacing":"-0.005em","fontWeight":"500"}]}}}};</script></head><body class="bg-surface-base font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface-elevated/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 max-w-7xl mx-auto px-gutter flex items-center justify-between"><div class="flex items-center gap-space-xl"><a class="flex items-center gap-space-sm group focus:outline-none" data-path="learn" href="#"><img alt="Brand logo. - Primary color: #0071e3
+- Font: inter
+- Mode: light
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UX0k0Hra6bqo3nFJa_jDROxWB7gFaadHzDUBx381V0hXazCXY9MOiGCxfhfzwWUOU_bZKgpRxPpqic18TC8tsrXc-niok31irXDvUirhMOweGYA5p7Q2rVrV_T-kb0YyowVH-KuK9sDH8Zsy3RPTaLEzXS6YpU2fFW_r5jfJITKa7iowzGeCx7o59aDf___lqNWerDRywWdNUAyxOubvCPIo2lIf89X-6-RIUxBAuPn3poh6QKaMZV34o"><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface">Re:Learn</span></a><nav class="hidden md:flex items-center gap-space-xs p-1" data-active-classes="bg-surface-container-high text-on-surface font-semibold rounded-full"><a class="font-label-ui text-label-ui text-on-surface-variant hover:text-on-surface px-space-md py-1.5 rounded-full transition-colors" data-path="learn" href="#">Learn</a><a aria-current="page" class="px-space-md py-1.5 transition-colors bg-surface-container-high text-on-surface font-semibold rounded-full" data-path="problems" href="#">Problems</a><a class="font-label-ui text-label-ui text-on-surface-variant hover:text-on-surface px-space-md py-1.5 rounded-full transition-colors" data-path="progress" href="#">Progress</a></nav></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container rounded-full text-on-surface"><span class="text-sm leading-none">🔥</span><span class="font-label-ui text-label-ui font-semibold">7</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface-base min-h-screen"><div class="flex flex-col w-full">
+<div class="max-w-7xl mx-auto w-full px-gutter py-space-xl">
+<!-- Breadcrumb / Overline -->
+<div class="flex items-center gap-space-xs text-text-secondary font-eyebrow text-eyebrow uppercase tracking-widest mb-space-sm">
+
+
+
+</div>
+<!-- Layout Grid: 75% Left Main Stream, 25% Right Context Rail -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- Dominant Main Panel (~75%) -->
+<section class="lg:col-span-9 flex flex-col gap-space-lg">
+<!-- Header Hierarchy -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-md">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-text-primary tracking-tight">Problems</h1>
+
+</div>
+<!-- Solved Metric Snapshot -->
+<div class="flex items-center gap-3 bg-surface-elevated px-4 py-2 rounded-full shadow-sm">
+<span class="font-body-sm text-body-sm text-text-secondary">Solved:</span>
+<span class="font-label-ui text-label-ui text-text-primary font-semibold">4 / 24&nbsp;</span>
+<div class="w-16 h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 16.6%;"></div>
+</div>
+</div>
+</div>
+<!-- Controls: Filters, Concept Selector & Quick Search -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pt-2">
+<!-- Difficulty Pill Controls (Interactive tabs) -->
+<div class="flex items-center gap-1.5 p-1 bg-surface-container rounded-full overflow-x-auto" id="filter-tabs">
+<button class="filter-btn px-4 py-1.5 rounded-full font-label-ui text-label-ui font-semibold bg-surface-elevated text-text-primary shadow-sm transition-all duration-150" data-filter="all">All</button>
+<button class="filter-btn px-4 py-1.5 rounded-full font-label-ui text-label-ui text-text-secondary hover:text-text-primary transition-all duration-150" data-filter="Easy">Easy</button>
+<button class="filter-btn px-4 py-1.5 rounded-full font-label-ui text-label-ui text-text-secondary hover:text-text-primary transition-all duration-150" data-filter="Medium">Medium</button>
+<button class="filter-btn px-4 py-1.5 rounded-full font-label-ui text-label-ui text-text-secondary hover:text-text-primary transition-all duration-150" data-filter="Hard">Hard</button>
+<button class="filter-btn px-4 py-1.5 rounded-full font-label-ui text-label-ui text-text-secondary hover:text-text-primary transition-all duration-150" data-filter="solved">Completed</button>
+</div>
+<!-- Search & Concepts Dropdown -->
+<div class="flex items-center gap-space-sm">
+<div class="relative flex-1 sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-tertiary text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-surface-elevated text-text-primary placeholder:text-text-tertiary font-body-sm text-body-sm rounded-full shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-container transition-all" id="problem-search" placeholder="Search questions..." type="text">
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-elevated text-text-primary font-label-ui text-label-ui py-1.5 pl-3.5 pr-8 rounded-full shadow-sm focus:outline-none cursor-pointer" id="concept-filter">
+<option value="">All Concepts</option>
+<option value="Variables">Variables</option>
+<option value="Lists">Lists</option>
+<option value="Conditionals">Conditionals</option>
+<option value="Loops">Loops</option>
+<option value="Memory Model">Memory Model</option>
+<option value="Functions">Functions</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-text-secondary pointer-events-none text-[16px]">expand_more</span>
+</div>
+</div>
+</div>
+<!-- High-Density Tabular View -->
+<div class="bg-surface-elevated rounded-xl shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse" id="problems-table">
+<!-- Table Headers -->
+<thead>
+<tr class="bg-surface-subtle text-text-secondary font-label-ui text-body-sm uppercase tracking-wider">
+<th class="py-3 pl-4 pr-2 w-12 text-center" scope="col">Status</th>
+<th class="py-3 px-4" scope="col">Title</th>
+<th class="py-3 px-4" scope="col">Concept</th>
+<th class="py-3 px-3" scope="col">Difficulty</th>
+<th class="py-3 px-4" scope="col">Reasoning Check</th>
+<th class="py-3 pr-4 pl-2 text-right" scope="col">Action</th>
+</tr>
+</thead>
+<!-- Table Body -->
+<tbody class="divide-y divide-surface-container font-body-md text-body-md text-text-primary">
+<!-- Problem 01 -->
+<tr class="problem-row hover:bg-surface-subtle/70 transition-colors group cursor-pointer" data-concept="Variables" data-difficulty="Easy" data-status="solved">
+<td class="py-3.5 pl-4 pr-2 text-center">
+<span class="material-symbols-outlined text-state-success text-[20px]" style="font-variation-settings: &quot;FILL&quot; 1;">check_circle</span>
+</td>
+<td class="py-3.5 px-4 font-label-ui font-medium group-hover:text-primary-container transition-colors">
+<span class="text-text-tertiary font-normal mr-1.5 font-label-code-inline">01.</span>
+                    What is a variable?
+                  </td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label-ui bg-surface-container text-text-secondary">Variables</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="text-state-success font-label-ui text-body-sm font-semibold">Easy</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 text-text-secondary text-body-sm font-body-sm bg-surface-container/60 px-2.5 py-1 rounded-md">
+<span class="text-xs">🧠</span>
+<span class="">Name binding model</span>
+</div>
+</td>
+<td class="py-3.5 pr-4 pl-2 text-right">
+<a class="inline-block px-3 py-1 rounded-full font-label-ui text-xs text-text-secondary hover:text-text-primary hover:bg-surface-container transition-all" href="#">Review</a>
+</td>
+</tr>
+<!-- Problem 02 -->
+<tr class="problem-row hover:bg-surface-subtle/70 transition-colors group cursor-pointer" data-concept="Variables" data-difficulty="Easy" data-status="solved">
+<td class="py-3.5 pl-4 pr-2 text-center">
+<span class="material-symbols-outlined text-state-success text-[20px]" style="font-variation-settings: &quot;FILL&quot; 1;">check_circle</span>
+</td>
+<td class="py-3.5 px-4 font-label-ui font-medium group-hover:text-primary-container transition-colors">
+<span class="text-text-tertiary font-normal mr-1.5 font-label-code-inline">02.</span>
+                    Predict the output: Sequential reassignment
+                  </td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label-ui bg-surface-container text-text-secondary">Variables</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="text-state-success font-label-ui text-body-sm font-semibold">Easy</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 text-text-secondary text-body-sm font-body-sm bg-surface-container/60 px-2.5 py-1 rounded-md">
+<span class="text-xs">🧠</span>
+<span class="">Step trace evaluation</span>
+</div>
+</td>
+<td class="py-3.5 pr-4 pl-2 text-right">
+<a class="inline-block px-3 py-1 rounded-full font-label-ui text-xs text-text-secondary hover:text-text-primary hover:bg-surface-container transition-all" href="#">Review</a>
+</td>
+</tr>
+<!-- Problem 03 -->
+<tr class="problem-row hover:bg-surface-subtle/70 transition-colors group cursor-pointer" data-concept="Memory Model" data-difficulty="Medium" data-status="inprogress">
+<td class="py-3.5 pl-4 pr-2 text-center">
+<span class="material-symbols-outlined text-primary-container text-[20px]">timelapse</span>
+</td>
+<td class="py-3.5 px-4 font-label-ui font-medium group-hover:text-primary-container transition-colors">
+<span class="text-text-tertiary font-normal mr-1.5 font-label-code-inline">03.</span>
+                    Pointer Assignment &amp; Re-binding
+                  </td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label-ui bg-surface-container text-text-secondary">Memory Model</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="text-state-warning font-label-ui text-body-sm font-semibold">Medium</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 text-primary text-body-sm font-body-sm bg-state-warning-subtle px-2.5 py-1 rounded-md">
+<span class="text-xs">🧠</span>
+<span class="text-on-surface">Heap memory address trace</span>
+</div>
+</td>
+<td class="py-3.5 pr-4 pl-2 text-right">
+<a class="inline-block px-3.5 py-1 rounded-full font-label-ui text-xs font-medium bg-primary-container text-surface-elevated hover:bg-primary transition-all" href="#">Continue</a>
+</td>
+</tr>
+<!-- Problem 04 -->
+<tr class="problem-row hover:bg-surface-subtle/70 transition-colors group cursor-pointer" data-concept="Lists" data-difficulty="Easy" data-status="solved">
+<td class="py-3.5 pl-4 pr-2 text-center">
+<span class="material-symbols-outlined text-state-success text-[20px]" style="font-variation-settings: &quot;FILL&quot; 1;">check_circle</span>
+</td>
+<td class="py-3.5 px-4 font-label-ui font-medium group-hover:text-primary-container transition-colors">
+<span class="text-text-tertiary font-normal mr-1.5 font-label-code-inline">04.</span>
+                    Zero-based indexing &amp; Offset logic
+                  </td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label-ui bg-surface-container text-text-secondary">Lists</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="text-state-success font-label-ui text-body-sm font-semibold">Easy</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 text-text-secondary text-body-sm font-body-sm bg-surface-container/60 px-2.5 py-1 rounded-md">
+<span class="text-xs">🧠</span>
+<span class="">Index calculation offset</span>
+</div>
+</td>
+<td class="py-3.5 pr-4 pl-2 text-right">
+<a class="inline-block px-3 py-1 rounded-full font-label-ui text-xs text-text-secondary hover:text-text-primary hover:bg-surface-container transition-all" href="#">Review</a>
+</td>
+</tr>
+<!-- Problem 05 -->
+<tr class="problem-row hover:bg-surface-subtle/70 transition-colors group cursor-pointer" data-concept="Conditionals" data-difficulty="Easy" data-status="unattempted">
+<td class="py-3.5 pl-4 pr-2 text-center">
+<span class="material-symbols-outlined text-text-tertiary text-[20px]">radio_button_unchecked</span>
+</td>
+<td class="py-3.5 px-4 font-label-ui font-medium group-hover:text-primary-container transition-colors">
+<span class="text-text-tertiary font-normal mr-1.5 font-label-code-inline">05.</span>
+                    Branch Evaluation in Simple Guard Rails
+                  </td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label-ui bg-surface-container text-text-secondary">Conditionals</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="text-state-success font-label-ui text-body-sm font-semibold">Easy</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 text-text-secondary text-body-sm font-body-sm bg-surface-container/60 px-2.5 py-1 rounded-md">
+<span class="text-xs">🧠</span>
+<span class="">Boolean truth gate</span>
+</div>
+</td>
+<td class="py-3.5 pr-4 pl-2 text-right">
+<a class="inline-block px-3 py-1 rounded-full font-label-ui text-xs text-primary-container hover:bg-primary-container hover:text-surface-elevated transition-all" href="#">Solve</a>
+</td>
+</tr>
+<!-- Problem 06 -->
+<tr class="problem-row hover:bg-surface-subtle/70 transition-colors group cursor-pointer" data-concept="Conditionals" data-difficulty="Medium" data-status="solved">
+<td class="py-3.5 pl-4 pr-2 text-center">
+<span class="material-symbols-outlined text-state-success text-[20px]" style="font-variation-settings: &quot;FILL&quot; 1;">check_circle</span>
+</td>
+<td class="py-3.5 px-4 font-label-ui font-medium group-hover:text-primary-container transition-colors">
+<span class="text-text-tertiary font-normal mr-1.5 font-label-code-inline">06.</span>
+                    Truthiness in Non-Boolean Objects
+                  </td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label-ui bg-surface-container text-text-secondary">Conditionals</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="text-state-warning font-label-ui text-body-sm font-semibold">Medium</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 text-text-secondary text-body-sm font-body-sm bg-surface-container/60 px-2.5 py-1 rounded-md">
+<span class="text-xs">🧠</span>
+<span class="">Falsy type evaluation</span>
+</div>
+</td>
+<td class="py-3.5 pr-4 pl-2 text-right">
+<a class="inline-block px-3 py-1 rounded-full font-label-ui text-xs text-text-secondary hover:text-text-primary hover:bg-surface-container transition-all" href="#">Review</a>
+</td>
+</tr>
+<!-- Problem 07 -->
+<tr class="problem-row hover:bg-surface-subtle/70 transition-colors group cursor-pointer" data-concept="Lists" data-difficulty="Medium" data-status="unattempted">
+<td class="py-3.5 pl-4 pr-2 text-center">
+<span class="material-symbols-outlined text-text-tertiary text-[20px]">radio_button_unchecked</span>
+</td>
+<td class="py-3.5 px-4 font-label-ui font-medium group-hover:text-primary-container transition-colors">
+<span class="text-text-tertiary font-normal mr-1.5 font-label-code-inline">07.</span>
+                    Off-by-one Indexing in Slice Boundaries
+                  </td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label-ui bg-surface-container text-text-secondary">Lists</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="text-state-warning font-label-ui text-body-sm font-semibold">Medium</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 text-text-secondary text-body-sm font-body-sm bg-surface-container/60 px-2.5 py-1 rounded-md">
+<span class="text-xs">🧠</span>
+<span class="">Upper-bound exclusion probe</span>
+</div>
+</td>
+<td class="py-3.5 pr-4 pl-2 text-right">
+<a class="inline-block px-3 py-1 rounded-full font-label-ui text-xs text-primary-container hover:bg-primary-container hover:text-surface-elevated transition-all" href="#">Solve</a>
+</td>
+</tr>
+<!-- Problem 08 -->
+<tr class="problem-row hover:bg-surface-subtle/70 transition-colors group cursor-pointer" data-concept="Conditionals" data-difficulty="Easy" data-status="unattempted">
+<td class="py-3.5 pl-4 pr-2 text-center">
+<span class="material-symbols-outlined text-text-tertiary text-[20px]">radio_button_unchecked</span>
+</td>
+<td class="py-3.5 px-4 font-label-ui font-medium group-hover:text-primary-container transition-colors">
+<span class="text-text-tertiary font-normal mr-1.5 font-label-code-inline">08.</span>
+                    Branching Logic with Elif Precedence
+                  </td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label-ui bg-surface-container text-text-secondary">Conditionals</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="text-state-success font-label-ui text-body-sm font-semibold">Easy</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 text-text-secondary text-body-sm font-body-sm bg-surface-container/60 px-2.5 py-1 rounded-md">
+<span class="text-xs">🧠</span>
+<span class="">Short-circuit evaluation</span>
+</div>
+</td>
+<td class="py-3.5 pr-4 pl-2 text-right">
+<a class="inline-block px-3 py-1 rounded-full font-label-ui text-xs text-primary-container hover:bg-primary-container hover:text-surface-elevated transition-all" href="#">Solve</a>
+</td>
+</tr>
+<!-- Problem 09 -->
+<tr class="problem-row hover:bg-surface-subtle/70 transition-colors group cursor-pointer" data-concept="Memory Model" data-difficulty="Hard" data-status="unattempted">
+<td class="py-3.5 pl-4 pr-2 text-center">
+<span class="material-symbols-outlined text-text-tertiary text-[20px]">radio_button_unchecked</span>
+</td>
+<td class="py-3.5 px-4 font-label-ui font-medium group-hover:text-primary-container transition-colors">
+<span class="text-text-tertiary font-normal mr-1.5 font-label-code-inline">09.</span>
+                    Scope Resolution in Nested Frame Blocks
+                  </td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label-ui bg-surface-container text-text-secondary">Memory Model</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="text-state-error font-label-ui text-body-sm font-semibold">Hard</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 text-text-secondary text-body-sm font-body-sm bg-surface-container/60 px-2.5 py-1 rounded-md">
+<span class="text-xs">🧠</span>
+<span class="">LEGB lookup sequence</span>
+</div>
+</td>
+<td class="py-3.5 pr-4 pl-2 text-right">
+<a class="inline-block px-3 py-1 rounded-full font-label-ui text-xs text-primary-container hover:bg-primary-container hover:text-surface-elevated transition-all" href="#">Solve</a>
+</td>
+</tr>
+<!-- Problem 10 -->
+<tr class="problem-row hover:bg-surface-subtle/70 transition-colors group cursor-pointer" data-concept="Memory Model" data-difficulty="Hard" data-status="unattempted">
+<td class="py-3.5 pl-4 pr-2 text-center">
+<span class="material-symbols-outlined text-text-tertiary text-[20px]">radio_button_unchecked</span>
+</td>
+<td class="py-3.5 px-4 font-label-ui font-medium group-hover:text-primary-container transition-colors">
+<span class="text-text-tertiary font-normal mr-1.5 font-label-code-inline">10.</span>
+                    Mutable vs. Immutable References in Functions
+                  </td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label-ui bg-surface-container text-text-secondary">Memory Model</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="text-state-error font-label-ui text-body-sm font-semibold">Hard</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 text-text-secondary text-body-sm font-body-sm bg-surface-container/60 px-2.5 py-1 rounded-md">
+<span class="text-xs">🧠</span>
+<span class="">Pass-by-object-reference</span>
+</div>
+</td>
+<td class="py-3.5 pr-4 pl-2 text-right">
+<a class="inline-block px-3 py-1 rounded-full font-label-ui text-xs text-primary-container hover:bg-primary-container hover:text-surface-elevated transition-all" href="#">Solve</a>
+</td>
+</tr>
+<!-- Problem 11 -->
+<tr class="problem-row hover:bg-surface-subtle/70 transition-colors group cursor-pointer" data-concept="Loops" data-difficulty="Medium" data-status="unattempted">
+<td class="py-3.5 pl-4 pr-2 text-center">
+<span class="material-symbols-outlined text-text-tertiary text-[20px]">radio_button_unchecked</span>
+</td>
+<td class="py-3.5 px-4 font-label-ui font-medium group-hover:text-primary-container transition-colors">
+<span class="text-text-tertiary font-normal mr-1.5 font-label-code-inline">11.</span>
+                    Loop Invariants and Accumulator Patterns
+                  </td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label-ui bg-surface-container text-text-secondary">Loops</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="text-state-warning font-label-ui text-body-sm font-semibold">Medium</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 text-text-secondary text-body-sm font-body-sm bg-surface-container/60 px-2.5 py-1 rounded-md">
+<span class="text-xs">🧠</span>
+<span class="">State iteration snapshot</span>
+</div>
+</td>
+<td class="py-3.5 pr-4 pl-2 text-right">
+<a class="inline-block px-3 py-1 rounded-full font-label-ui text-xs text-primary-container hover:bg-primary-container hover:text-surface-elevated transition-all" href="#">Solve</a>
+</td>
+</tr>
+<!-- Problem 12 -->
+<tr class="problem-row hover:bg-surface-subtle/70 transition-colors group cursor-pointer" data-concept="Functions" data-difficulty="Hard" data-status="unattempted">
+<td class="py-3.5 pl-4 pr-2 text-center">
+<span class="material-symbols-outlined text-text-tertiary text-[20px]">radio_button_unchecked</span>
+</td>
+<td class="py-3.5 px-4 font-label-ui font-medium group-hover:text-primary-container transition-colors">
+<span class="text-text-tertiary font-normal mr-1.5 font-label-code-inline">12.</span>
+                    Closure State Retain Cycles
+                  </td>
+<td class="py-3.5 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-label-ui bg-surface-container text-text-secondary">Functions</span>
+</td>
+<td class="py-3.5 px-3">
+<span class="text-state-error font-label-ui text-body-sm font-semibold">Hard</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="inline-flex items-center gap-1.5 text-text-secondary text-body-sm font-body-sm bg-surface-container/60 px-2.5 py-1 rounded-md">
+<span class="text-xs">🧠</span>
+<span class="">Lexical environment capture</span>
+</div>
+</td>
+<td class="py-3.5 pr-4 pl-2 text-right">
+<a class="inline-block px-3 py-1 rounded-full font-label-ui text-xs text-primary-container hover:bg-primary-container hover:text-surface-elevated transition-all" href="#">Solve</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Empty State (Hidden by default) -->
+<div class="hidden py-space-xl text-center" id="no-problems-found">
+<span class="material-symbols-outlined text-text-tertiary text-4xl mb-2">manage_search</span>
+<p class="font-headline-sm text-headline-sm text-text-primary">No diagnostics found</p>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">Try resetting the difficulty or concept search filters.</p>
+</div>
+</div>
+</section>
+<!-- Sticky Context Rail (~25%) -->
+<aside class="lg:col-span-3 flex flex-col gap-space-md sticky top-20">
+<!-- Card 1: Reasoning Activity -->
+<div class="bg-surface-elevated p-space-md rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+
+<h2 class="font-label-ui text-label-ui font-semibold text-text-primary">Reasoning Activity</h2>
+</div>
+
+</div>
+
+<div class="bg-surface-subtle p-3 rounded-lg flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-text-secondary">Diagnostic Accuracy</span>
+<span class="font-label-ui text-label-ui font-bold text-state-success">92%</span>
+</div>
+<div class="w-full h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-state-success rounded-full" style="width: 92%;"></div>
+</div>
+
+</div>
+</div>
+<!-- Card 2: 7 Day Streak -->
+<div class="bg-surface-elevated p-space-md rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-1.5">
+<span class="text-base leading-none">🔥</span>
+<h2 class="font-label-ui text-label-ui font-semibold text-text-primary">7 Day Streak</h2>
+</div>
+<span class="text-xs font-label-ui font-medium text-state-success">Active today</span>
+</div>
+<div class="grid grid-cols-7 gap-1.5 text-center mt-2">
+<div class="flex flex-col items-center gap-1">
+<span class="text-[11px] font-label-ui text-text-tertiary">M</span>
+<div class="w-6 h-6 rounded-full bg-state-success flex items-center justify-center text-surface-elevated text-[11px] font-semibold">✓</div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[11px] font-label-ui text-text-tertiary">T</span>
+<div class="w-6 h-6 rounded-full bg-state-success flex items-center justify-center text-surface-elevated text-[11px] font-semibold">✓</div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[11px] font-label-ui text-text-tertiary">W</span>
+<div class="w-6 h-6 rounded-full bg-state-success flex items-center justify-center text-surface-elevated text-[11px] font-semibold">✓</div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[11px] font-label-ui text-text-tertiary">T</span>
+<div class="w-6 h-6 rounded-full bg-state-success flex items-center justify-center text-surface-elevated text-[11px] font-semibold">✓</div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[11px] font-label-ui text-text-tertiary">F</span>
+<div class="w-6 h-6 rounded-full bg-state-success flex items-center justify-center text-surface-elevated text-[11px] font-semibold">✓</div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[11px] font-label-ui text-text-tertiary">S</span>
+<div class="w-6 h-6 rounded-full bg-state-success flex items-center justify-center text-surface-elevated text-[11px] font-semibold">✓</div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[11px] font-label-ui text-text-tertiary font-bold text-text-primary">S</span>
+<div class="w-6 h-6 rounded-full bg-primary-container flex items-center justify-center text-surface-elevated text-[11px] font-semibold">★</div>
+</div>
+</div>
+</div>
+<!-- Card 3: Calibration Progress Breakdown -->
+<div class="bg-surface-elevated p-space-md rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-label-ui text-label-ui font-semibold text-text-primary">Problem Progress</h2>
+<span class="text-xs font-label-code-inline text-text-secondary">4/24&nbsp;</span>
+</div>
+<div class="space-y-3 font-body-sm text-body-sm">
+<!-- Easy -->
+<div>
+<div class="flex justify-between items-center text-xs mb-1">
+<span class="font-medium text-state-success">Easy</span>
+<span class="text-text-secondary font-label-code-inline">3 / 10</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-state-success rounded-full" style="width: 30%;"></div>
+</div>
+</div>
+<!-- Medium -->
+<div>
+<div class="flex justify-between items-center text-xs mb-1">
+<span class="font-medium text-state-warning">Medium</span>
+<span class="text-text-secondary font-label-code-inline">1 / 10</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-state-warning rounded-full" style="width: 10%;"></div>
+</div>
+</div>
+<!-- Hard -->
+<div>
+<div class="flex justify-between items-center text-xs mb-1">
+<span class="font-medium text-state-error">Hard</span>
+<span class="text-text-secondary font-label-code-inline">0 / 4</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-state-error rounded-full" style="width: 0%;"></div>
+</div>
+</div>
+</div>
+<!-- Micro Motivation Callout -->
+
+</div>
+</aside>
+</div>
+</div>
+<script>
+    (function() {
+      const searchInput = document.getElementById('problem-search');
+      const conceptFilter = document.getElementById('concept-filter');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const rows = document.querySelectorAll('.problem-row');
+      const emptyState = document.getElementById('no-problems-found');
+
+      let currentTab = 'all';
+
+      function applyFilters() {
+        const query = searchInput.value.toLowerCase().trim();
+        const selectedConcept = conceptFilter.value;
+        let visibleCount = 0;
+
+        rows.forEach(row => {
+          const title = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+          const concept = row.dataset.concept;
+          const difficulty = row.dataset.difficulty;
+          const status = row.dataset.status;
+
+          let matchesTab = true;
+          if (currentTab === 'solved') {
+            matchesTab = (status === 'solved');
+          } else if (currentTab !== 'all') {
+            matchesTab = (difficulty.toLowerCase() === currentTab.toLowerCase());
+          }
+
+          let matchesConcept = !selectedConcept || (concept === selectedConcept);
+          let matchesSearch = !query || title.includes(query);
+
+          if (matchesTab && matchesConcept && matchesSearch) {
+            row.style.display = '';
+            visibleCount++;
+          } else {
+            row.style.display = 'none';
+          }
+        });
+
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+        }
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => {
+            b.classList.remove('bg-surface-elevated', 'text-text-primary', 'shadow-sm', 'font-semibold');
+            b.classList.add('text-text-secondary');
+          });
+          btn.classList.add('bg-surface-elevated', 'text-text-primary', 'shadow-sm', 'font-semibold');
+          btn.classList.remove('text-text-secondary');
+          
+          currentTab = btn.dataset.filter;
+          applyFilters();
+        });
+      });
+
+      searchInput.addEventListener('input', applyFilters);
+      conceptFilter.addEventListener('change', applyFilters);
+    })();
+  </script>
+</div></main>
+
+</body></html>

@@ -29,7 +29,10 @@ async function trainModel() {
   const artifactPath = path.join(__dirname, '../data/eval/misconception_model_v1.json');
   fs.writeFileSync(artifactPath, modelData, 'utf-8');
 
-  console.log(`Model trained and saved to ${artifactPath}`);
+  const publicArtifactPath = path.join(__dirname, '../public/eval/misconception_model_v1.json');
+  fs.writeFileSync(publicArtifactPath, modelData, 'utf-8');
+
+  console.log(`Model trained and saved to ${artifactPath} and ${publicArtifactPath}`);
 }
 
 trainModel().catch(console.error);

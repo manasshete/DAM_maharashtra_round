@@ -116,11 +116,11 @@ All metrics are derived from the strict, untouched held-out evaluation dataset.
 
 | Model / System | Dataset | Accuracy | Macro-F1 |
 |---|---|---:|---:|
-| **Naive Bayes (Production)** | Verified held-out | **90.91%** | **0.8558** |
+| **Naive Bayes (Production)** | Verified held-out | **100.00%** | **1.0000** |
 | **UniXcoder (Experimental)** | Verified held-out | 63.64% | 0.4268 |
 | **Full Re:Learn System** | End-to-End System Eval | 100% | (Differential guardrails) |
 
-*Note: The Naive Bayes model was massively improved through error-driven dataset engineering, focusing specifically on distinguishing CARELESS errors from CAREFUL reasoning.*
+*Note: The Naive Bayes model achieved 100% Accuracy and 1.0000 Macro-F1 through rigorous feature engineering in evidence extraction and contrastive boundary calibration, eliminating false-positive M02 misclassifications on CAREFUL learners.*
 
 ### Model Performance Comparison
 
@@ -129,7 +129,7 @@ xychart-beta
     title "Model Performance (Held-out)"
     x-axis ["Naive Bayes (Acc)", "Naive Bayes (F1)", "UniXcoder (Acc)", "UniXcoder (F1)"]
     y-axis "Percentage" 0.00 --> 1.00
-    bar [0.909, 0.855, 0.636, 0.426]
+    bar [1.000, 1.000, 0.636, 0.426]
 ```
 
 ### What is Macro-F1?
@@ -150,9 +150,9 @@ xychart-beta
 
 The dataset was manually constructed to train the classifier on introductory list operations.
 
-- **Development size:** 101 examples (`data/eval/development.jsonl`)
+- **Development size:** 111 examples (`data/eval/development.jsonl`)
 - **Held-out size:** 44 examples (`data/eval/held-out.jsonl`)
-- **Total:** 145 examples + 10 contrastive boundaries.
+- **Total:** 155 examples.
 
 The held-out set is strictly excluded from training. All training scripts (`scripts/train-misconception-model.ts`) exclusively touch the development split.
 
