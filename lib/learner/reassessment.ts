@@ -34,7 +34,7 @@ export async function evaluateReassessment(input: ReassessmentInput): Promise<Le
                             input.execution.stdout.trim() === input.question.expectedBehavior.output;
 
   const misconceptionStillPresent = (diagnosis.status === "DIAGNOSED" && diagnosis.candidateId === input.targetMisconceptionId) ||
-                                    features["reasoning_index_1"]; // Explicit check for reasoning trace if model abstains due to low prob
+                                    !!features["reasoning_index_1"]; // Explicit check for reasoning trace if model abstains due to low prob
 
   if (isBehaviorCorrect && !misconceptionStillPresent) {
     return {

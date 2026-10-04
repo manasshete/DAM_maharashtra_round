@@ -1,0 +1,166 @@
+{
+  "diagnosisAccuracy": 1,
+  "abstentionRate": 0.4166666666666667,
+  "correctAbstentionRate": 1,
+  "falseDiagnosisRate": 0,
+  "interventionTargetingSuccess": 0.42857142857142855,
+  "resolutionCorrectRate": 1,
+  "results": [
+    {
+      "scenario": "A. Correct learner",
+      "extractedFeatures": [
+        "output_correct"
+      ],
+      "rawPrediction": "M02",
+      "diagnosisStatus": "ABSTAIN",
+      "candidateId": "M02",
+      "finalState": "UNKNOWN",
+      "passedDiagnosis": true,
+      "interventionDelivered": false
+    },
+    {
+      "scenario": "B. M01 misconception (range starts at 1)",
+      "extractedFeatures": [
+        "output_incorrect_other",
+        "reasoning_range_starts_1"
+      ],
+      "rawPrediction": "M01",
+      "diagnosisStatus": "DIAGNOSED",
+      "candidateId": "M01",
+      "finalState": "INTERVENTION",
+      "passedDiagnosis": true,
+      "interventionDelivered": true
+    },
+    {
+      "scenario": "C. M02 misconception (first index is 1)",
+      "extractedFeatures": [
+        "output_incorrect_second_element",
+        "ast_items_1",
+        "reasoning_index_1"
+      ],
+      "rawPrediction": "M02",
+      "diagnosisStatus": "DIAGNOSED",
+      "candidateId": "M02",
+      "finalState": "INTERVENTION",
+      "passedDiagnosis": true,
+      "interventionDelivered": true
+    },
+    {
+      "scenario": "D. M03 misconception (loop off-by-one)",
+      "extractedFeatures": [
+        "output_incorrect_other",
+        "reasoning_off_by_one",
+        "reasoning_includes_endpoint"
+      ],
+      "rawPrediction": "M03",
+      "diagnosisStatus": "DIAGNOSED",
+      "candidateId": "M03",
+      "finalState": "INTERVENTION",
+      "passedDiagnosis": true,
+      "interventionDelivered": true
+    },
+    {
+      "scenario": "E. Careless error",
+      "extractedFeatures": [
+        "output_incorrect_other"
+      ],
+      "rawPrediction": "M01",
+      "diagnosisStatus": "ABSTAIN",
+      "candidateId": "M01",
+      "finalState": "UNKNOWN",
+      "passedDiagnosis": true,
+      "interventionDelivered": false
+    },
+    {
+      "scenario": "F. Syntax error",
+      "extractedFeatures": [
+        "syntax_error"
+      ],
+      "rawPrediction": "SYNTAX_ERROR",
+      "diagnosisStatus": "ABSTAIN",
+      "candidateId": "SYNTAX_ERROR",
+      "finalState": "UNKNOWN",
+      "passedDiagnosis": true,
+      "interventionDelivered": false
+    },
+    {
+      "scenario": "G. Runtime error",
+      "extractedFeatures": [
+        "ast_index_out_of_bounds",
+        "runtime_error"
+      ],
+      "rawPrediction": "RUNTIME_ERROR",
+      "diagnosisStatus": "ABSTAIN",
+      "candidateId": "RUNTIME_ERROR",
+      "finalState": "UNKNOWN",
+      "passedDiagnosis": true,
+      "interventionDelivered": false
+    },
+    {
+      "scenario": "H. Unknown/ambiguous case",
+      "extractedFeatures": [
+        "output_incorrect_other",
+        "ast_items_1"
+      ],
+      "rawPrediction": "M02",
+      "diagnosisStatus": "ABSTAIN",
+      "candidateId": "M02",
+      "finalState": "UNKNOWN",
+      "passedDiagnosis": true,
+      "interventionDelivered": false
+    },
+    {
+      "scenario": "I. Correct answer with contradictory reasoning (Correct-answer trap)",
+      "extractedFeatures": [
+        "output_correct",
+        "ast_items_0",
+        "reasoning_index_1"
+      ],
+      "rawPrediction": "SYNTAX_ERROR",
+      "diagnosisStatus": "DIAGNOSED",
+      "candidateId": "M02",
+      "finalState": "PERSISTENT",
+      "passedDiagnosis": true,
+      "interventionDelivered": true
+    },
+    {
+      "scenario": "J. Correct direct answer but failed transfer",
+      "extractedFeatures": [
+        "output_incorrect_second_element",
+        "reasoning_index_1"
+      ],
+      "rawPrediction": "M02",
+      "diagnosisStatus": "DIAGNOSED",
+      "candidateId": "M02",
+      "finalState": "PERSISTENT",
+      "passedDiagnosis": true,
+      "interventionDelivered": true
+    },
+    {
+      "scenario": "K. Correct direct + transfer but inconsistent reasoning",
+      "extractedFeatures": [
+        "output_incorrect_second_element",
+        "reasoning_index_1"
+      ],
+      "rawPrediction": "M02",
+      "diagnosisStatus": "DIAGNOSED",
+      "candidateId": "M02",
+      "finalState": "PERSISTENT",
+      "passedDiagnosis": true,
+      "interventionDelivered": true
+    },
+    {
+      "scenario": "L. Genuine resolution",
+      "extractedFeatures": [
+        "output_incorrect_second_element",
+        "reasoning_index_1"
+      ],
+      "rawPrediction": "M02",
+      "diagnosisStatus": "DIAGNOSED",
+      "candidateId": "M02",
+      "finalState": "VERIFIED_RESOLVED",
+      "passedDiagnosis": true,
+      "interventionDelivered": true
+    }
+  ]
+}

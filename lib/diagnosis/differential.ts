@@ -23,46 +23,65 @@ export async function runDifferentialDiagnosis(input: DifferentialDiagnosisInput
     };
   }
 
-  const predictedClass = result.prediction;
+  let predictedClass = result.prediction;
   const probability = result.probabilities[predictedClass] || 0;
   
-  // 2. We only care if the model predicts a known misconception for this question
-  // If the model predicts RUNTIME_ERROR, SYNTAX_ERROR, or OTHER_UNKNOWN, we shouldn't diagnose M02.
-  const isMisconception = predictedClass.startsWith("M");
+  // 2. Identify Contradictory Conceptual Evidence
+  // A correct execution result should NOT automatically cancel high-quality conceptual evidence.
+  let contradictoryCandidate: string | null = null;
+  if (input.features["reasoning_index_1"]) {
+    contradictoryCandidate = "M02";
+  } else if (input.features["reasoning_range_starts_1"]) {
+    contradictoryCandidate = "M01";
+  } else if (input.features["reasoning_includes_endpoint"] || input.features["reasoning_off_by_one"]) {
+    contradictoryCandidate = "M03";
+  }
+
+  let activeCandidate = predictedClass;
+  let isContradictoryOverride = false;
+
+  // If the model predicted a non-misconception (or got distracted by correct output) but we have
+  // explicit contradictory reasoning, the misconception candidate remains viable.
+  if (contradictoryCandidate && (!predictedClass.startsWith("M") || input.features["output_correct"])) {
+    activeCandidate = contradictoryCandidate;
+    isContradictoryOverride = true;
+  }
+
+  // 3. We only care if the active candidate is a known misconception for this question
+  const isMisconception = activeCandidate.startsWith("M");
   
   if (!isMisconception) {
     return {
       status: "ABSTAIN",
-      candidateId: predictedClass,
-      explanation: `Behavior classified as ${predictedClass}. Does not strongly map to a known misconception.`,
+      candidateId: activeCandidate,
+      explanation: `Behavior classified as ${activeCandidate}. Does not strongly map to a known misconception.`,
       needsDiagnosticQuestion: false
     };
   }
 
-  // 3. Evidence sufficiency check (confidence threshold)
-  // Example: if only "ast_items_1" is present, Naive Bayes might output M02 but with low probability if 
-  // OTHER_UNKNOWN is also likely.
-  if (probability < CONFIDENCE_THRESHOLD) {
+  // 4. Evidence sufficiency check (confidence threshold)
+  // We bypass the statistical confidence threshold ONLY IF we have explicit contradictory conceptual evidence.
+  if (!isContradictoryOverride && probability < CONFIDENCE_THRESHOLD) {
     return {
       status: "ABSTAIN",
-      candidateId: predictedClass,
-      explanation: `Model suspects ${predictedClass} but confidence (${(probability * 100).toFixed(1)}%) is below threshold. Stronger evidence required.`,
+      candidateId: activeCandidate,
+      explanation: `Model suspects ${activeCandidate} but confidence (${(probability * 100).toFixed(1)}%) is below threshold. Stronger evidence required.`,
       needsDiagnosticQuestion: true // ambiguous case
     };
   }
   
-  // 4. Verification against question targets (Safety guard)
-  if (!input.question.misconceptionTargets.includes(predictedClass)) {
+  // 5. Verification against question targets (Safety guard)
+  if (!input.question.misconceptionTargets.includes(activeCandidate)) {
     return {
       status: "ABSTAIN",
-      candidateId: predictedClass,
-      explanation: `Model predicted ${predictedClass}, but this question is not designed to target it.`,
+      candidateId: activeCandidate,
+      explanation: `Candidate ${activeCandidate} identified, but this question is not designed to target it.`,
       needsDiagnosticQuestion: false
     };
   }
 
-  // 5. Hard Differential Rules
-  if (predictedClass === "M02") {
+  // 6. Hard Differential Rules
+  if (activeCandidate === "M02") {
     // "A single code pattern must never be sufficient to diagnose M02."
     const hasStrongM02Evidence = 
       input.features["output_incorrect_second_element"] || 
@@ -76,7 +95,7 @@ export async function runDifferentialDiagnosis(input: DifferentialDiagnosisInput
         needsDiagnosticQuestion: true
       };
     }
-  } else if (predictedClass === "M01") {
+  } else if (activeCandidate === "M01") {
     const hasStrongM01Evidence = input.features["reasoning_range_starts_1"];
     if (!hasStrongM01Evidence && !input.features["output_incorrect_other"]) {
       return {
@@ -86,8 +105,8 @@ export async function runDifferentialDiagnosis(input: DifferentialDiagnosisInput
         needsDiagnosticQuestion: true
       };
     }
-  } else if (predictedClass === "M03") {
-    const hasStrongM03Evidence = input.features["reasoning_includes_endpoint"];
+  } else if (activeCandidate === "M03") {
+    const hasStrongM03Evidence = input.features["reasoning_includes_endpoint"] || input.features["reasoning_off_by_one"];
     if (!hasStrongM03Evidence && !input.features["output_incorrect_other"]) {
       return {
         status: "ABSTAIN",
@@ -98,11 +117,13 @@ export async function runDifferentialDiagnosis(input: DifferentialDiagnosisInput
     }
   }
 
-  // 6. Passed all gates
+  // 7. Passed all gates
   return {
     status: "DIAGNOSED",
-    candidateId: predictedClass,
-    explanation: `Evidence strongly supports ${predictedClass} (Confidence: ${(probability * 100).toFixed(1)}%).`,
+    candidateId: activeCandidate,
+    explanation: isContradictoryOverride 
+      ? `Explicit contradictory reasoning identified for ${activeCandidate} despite execution outcome.`
+      : `Evidence strongly supports ${activeCandidate} (Confidence: ${(probability * 100).toFixed(1)}%).`,
     needsDiagnosticQuestion: false
   };
 }

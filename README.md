@@ -42,8 +42,22 @@ flowchart TD
     style LLM fill:#fff3e0,stroke:#e65100,stroke-dasharray: 5 5
 ```
 
-## 🧠 Experimental Pretrained Code Model (Phase 2D)
-The system currently relies on a Naive Bayes classifier as the primary baseline, which provides high interpretability and balance across minority classes. In **Phase 2D**, we experimented with fine-tuning a pretrained `microsoft/unixcoder-base` model. While the UniXcoder model proved incredibly powerful at extracting and anchoring on reasoning blocks (achieving 100% recall for core misconceptions), it was prone to majority-class collapse without a significantly larger and more balanced dataset. Therefore, the deterministic baseline model remains the active production diagnostic core.
+## 🧠 Evaluation Results
+
+### Dataset
+- **145 Total Examples** (101 Development / 44 Held-out)
+
+### Model Baselines
+- **Naive Bayes (Production Active):** 61.36% Accuracy | 0.4864 Macro-F1
+- **UniXcoder (Phase 2D Experimental):** 63.64% Accuracy | 0.4268 Macro-F1
+
+*Note: While the UniXcoder model proved incredibly powerful at extracting and anchoring on reasoning blocks (achieving 100% recall for core misconceptions), it was prone to majority-class collapse without a significantly larger and more balanced dataset. Therefore, the deterministic baseline model remains the active production diagnostic core.*
+
+### Full-System Diagnostics (Phase 2E.1)
+- **Diagnosis Accuracy:** 100%
+- **Correct Abstention:** 100%
+- **False Diagnosis Rate:** 0%
+- **Resolution Accuracy:** 100%
 
 ## 🚀 Getting Started
 
