@@ -62,7 +62,7 @@ export function extractFeatures(input: EvidenceExtractionInput): FeatureVector {
     features["reasoning_off_by_one"] = 1;
   }
 
-  if (textToAnalyze.includes("range") && (textToAnalyze.includes("starts at 1") || textToAnalyze.includes("from 1"))) {
+  if (textToAnalyze.includes("starts at 1") || textToAnalyze.includes("counts from 1") || (textToAnalyze.includes("range") && (textToAnalyze.includes("starts at 1") || textToAnalyze.includes("from 1") || textToAnalyze.includes("1 to")))) {
     features["reasoning_range_starts_1"] = 1;
   }
   if ((textToAnalyze.includes("include") || textToAnalyze.includes("inclus")) && (textToAnalyze.includes("endpoint") || textToAnalyze.match(/[0-9]+/))) {
@@ -73,7 +73,7 @@ export function extractFeatures(input: EvidenceExtractionInput): FeatureVector {
     features["reasoning_careless"] = 1;
   }
 
-  if (textToAnalyze.includes("second item") || textToAnalyze.includes("need") || textToAnalyze.includes("index 1")) {
+  if ((textToAnalyze.includes("second item") || textToAnalyze.includes("second element") || textToAnalyze.includes("second")) && !textToAnalyze.includes("first")) {
     features["reasoning_careful"] = 1;
   }
   

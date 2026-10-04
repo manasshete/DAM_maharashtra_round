@@ -117,7 +117,7 @@
         "ast_items_0",
         "reasoning_index_1"
       ],
-      "rawPrediction": "SYNTAX_ERROR",
+      "rawPrediction": "M02",
       "diagnosisStatus": "DIAGNOSED",
       "candidateId": "M02",
       "finalState": "PERSISTENT",
@@ -128,8 +128,7 @@
       "scenario": "J. Correct direct answer but failed transfer",
       "extractedFeatures": [
         "output_incorrect_second_element",
-        "reasoning_index_1",
-        "reasoning_careful"
+        "reasoning_index_1"
       ],
       "rawPrediction": "M02",
       "diagnosisStatus": "DIAGNOSED",
@@ -142,8 +141,7 @@
       "scenario": "K. Correct direct + transfer but inconsistent reasoning",
       "extractedFeatures": [
         "output_incorrect_second_element",
-        "reasoning_index_1",
-        "reasoning_careful"
+        "reasoning_index_1"
       ],
       "rawPrediction": "M02",
       "diagnosisStatus": "DIAGNOSED",
@@ -156,8 +154,7 @@
       "scenario": "L. Genuine resolution",
       "extractedFeatures": [
         "output_incorrect_second_element",
-        "reasoning_index_1",
-        "reasoning_careful"
+        "reasoning_index_1"
       ],
       "rawPrediction": "M02",
       "diagnosisStatus": "DIAGNOSED",

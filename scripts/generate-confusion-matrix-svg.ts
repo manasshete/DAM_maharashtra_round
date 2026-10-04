@@ -35,7 +35,7 @@ async function generate() {
         const actual = item.label;
         const features = item.features;
         const prediction = classifier.predict(features);
-        const predicted = prediction.candidateId;
+        const predicted = prediction.prediction;
         if (matrix[actual] && matrix[actual][predicted] !== undefined) {
             matrix[actual][predicted]++;
         }

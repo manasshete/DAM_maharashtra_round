@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FBFBFD;
+  --foreground: #1D1D1F;
+
+  /* Re:Learn Stitch Color Palette */
+  --surface-base: #FBFBFD;
+  --surface-elevated: #FFFFFF;
+  --surface-subtle: #F5F5F7;
+  --surface-container: #edeef0;
+  --surface-container-high: #e8e8ea;
+  --text-primary: #1D1D1F;
+  --text-secondary: #86868B;
+  --text-tertiary: #A1A1A6;
+  --primary: #0071e3;
+  --primary-container: #0071e3;
+  --primary-fixed: #d7e2ff;
+  --border-subtle: #E5E5EA;
+  --border-strong: #D1D1D6;
+  --code-surface: #F6F8FA;
+  --code-border: #E1E4E8;
+  --state-success: #34C759;
+  --state-success-subtle: #EBF9EE;
+  --state-warning: #F5A623;
+  --state-warning-subtle: #FEF7E8;
+  --state-error: #FF3B30;
+  --state-error-subtle: #FFECEB;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-surface-base: var(--surface-base);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-primary: var(--primary);
+  --color-primary-container: var(--primary-container);
+  --color-primary-fixed: var(--primary-fixed);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-code-surface: var(--code-surface);
+  --color-code-border: var(--code-border);
+  --color-state-success: var(--state-success);
+  --color-state-success-subtle: var(--state-success-subtle);
+  --color-state-warning: var(--state-warning);
+  --color-state-warning-subtle: var(--state-warning-subtle);
+  --color-state-error: var(--state-error);
+  --color-state-error-subtle: var(--state-error-subtle);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--surface-base);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Material Symbols icon sizing helper */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #E5E5EA;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D1D1D6;
 }
