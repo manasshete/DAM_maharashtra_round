@@ -11,7 +11,7 @@ import { NaiveBayesClassifier } from '../lib/diagnosis/model/classifier';
 import { InterventionEngine } from '../lib/intervention/engine';
 import { evaluateReassessment } from '../lib/learner/reassessment';
 import { transitionMisconceptionState, createInitialState, MisconceptionState, LearningEvent, ResolutionState } from '../lib/learner/resolution';
-import { CheckCircle2, ChevronRight, RotateCcw, Search, Brain, ShieldCheck, FileCode, Check, X, Activity } from 'lucide-react';
+import { CheckCircle2, ChevronRight, RotateCcw, Search, Brain, ShieldCheck, FileCode, Check, X, Activity, Code2, ArrowRight } from 'lucide-react';
 
 const SCENARIOS = [
   {
@@ -147,7 +147,7 @@ export default function ReassessmentUI() {
   
   const [showUnderTheHood, setShowUnderTheHood] = useState(false);
   
-  const [visualStage, setVisualStage] = useState<"ATTEMPT" | "ANALYZING" | "EVIDENCE_DIAGNOSIS" | "INTERVENTION" | "REASSESS_DIRECT" | "REASSESS_TRANSFER" | "RESOLUTION">("ATTEMPT");
+  const [visualStage, setVisualStage] = useState<"INTRO" | "ATTEMPT" | "ANALYZING" | "EVIDENCE_DIAGNOSIS" | "INTERVENTION" | "REASSESS_DIRECT" | "REASSESS_TRANSFER" | "RESOLUTION">("INTRO");
   
   const [reassessDirectCode, setReassessDirectCode] = useState(`days = ["Monday", "Tuesday", "Wednesday"]\nprint(days[1])`);
   const [reassessDirectReasoning, setReassessDirectReasoning] = useState(`first item is index 0`);
@@ -435,6 +435,48 @@ export default function ReassessmentUI() {
           <div className="max-w-3xl mx-auto space-y-8">
             
             <AnimatePresence mode="wait">
+              {visualStage === "INTRO" && (
+                <motion.div
+                  key="intro"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="flex flex-col items-center justify-center min-h-[60vh] space-y-12 text-center"
+                >
+                  <div className="space-y-6 max-w-2xl">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-400 text-xs font-semibold uppercase tracking-wider mb-4">
+                      <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse"></span>
+                      Interactive Demo
+                    </div>
+                    <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-tight">
+                      Don't just mark it wrong. <br />
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-purple-600">Fix the misconception.</span>
+                    </h1>
+                    <p className="text-slate-400 text-lg max-w-xl mx-auto leading-relaxed">
+                      Experience how Re:Learn goes beyond simple right or wrong answers to diagnose exactly <em>why</em> a learner made a mistake.
+                    </p>
+                  </div>
+                  
+                  <div className="bg-[#12121A] border border-white/5 rounded-[24px] p-6 max-w-xl w-full text-left flex gap-6 items-center shadow-xl">
+                    <div className="w-16 h-16 rounded-full bg-violet-900/20 border border-violet-500/20 flex items-center justify-center flex-shrink-0">
+                      <Code2 className="w-8 h-8 text-violet-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-white font-bold text-lg mb-1">Intro to Python: Lists</h3>
+                      <p className="text-slate-400 text-sm">Test your knowledge of Python list indexing and see how Re:Learn adapts to your specific answers.</p>
+                    </div>
+                  </div>
+
+                  <button 
+                    onClick={() => setVisualStage("ATTEMPT")}
+                    className="bg-violet-600 hover:bg-violet-500 text-white font-semibold py-4 px-12 rounded-[16px] transition-colors shadow-[0_0_30px_rgba(124,58,237,0.3)] hover:shadow-[0_0_40px_rgba(124,58,237,0.5)] flex items-center gap-2 text-lg group"
+                  >
+                    Start Interactive Demo
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </motion.div>
+              )}
+
               {visualStage === "ATTEMPT" && (
                 <motion.div
                   key="attempt"
