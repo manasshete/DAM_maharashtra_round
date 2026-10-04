@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 570 570" width="570" height="570" style="background-color: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">
+  <text x="285" y="30" fill="#c9d1d9" font-size="20" font-weight="bold" text-anchor="middle">Naive Bayes Confusion Matrix</text>
+  <text x="20" y="350" fill="#8b949e" font-size="14" font-weight="bold" transform="rotate(-90, 20, 350)" text-anchor="middle">True Class</text>
+  <text x="350" y="560" fill="#8b949e" font-size="14" font-weight="bold" text-anchor="middle">Predicted Class</text>
+  <text x="140" y="180" fill="#c9d1d9" font-size="12" text-anchor="end">M01</text>
+  <text x="175" y="140" fill="#c9d1d9" font-size="12" transform="rotate(-45, 175, 140)" text-anchor="start">M01</text>
+  <rect x="150" y="150" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="225" y="140" fill="#c9d1d9" font-size="12" transform="rotate(-45, 225, 140)" text-anchor="start">M02</text>
+  <rect x="200" y="150" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="275" y="140" fill="#c9d1d9" font-size="12" transform="rotate(-45, 275, 140)" text-anchor="start">M03</text>
+  <rect x="250" y="150" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="325" y="140" fill="#c9d1d9" font-size="12" transform="rotate(-45, 325, 140)" text-anchor="start">SYNTAX_ERROR</text>
+  <rect x="300" y="150" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="375" y="140" fill="#c9d1d9" font-size="12" transform="rotate(-45, 375, 140)" text-anchor="start">RUNTIME_ERROR</text>
+  <rect x="350" y="150" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="425" y="140" fill="#c9d1d9" font-size="12" transform="rotate(-45, 425, 140)" text-anchor="start">CARELESS_ERROR</text>
+  <rect x="400" y="150" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="475" y="140" fill="#c9d1d9" font-size="12" transform="rotate(-45, 475, 140)" text-anchor="start">CAREFUL_CORRECT</text>
+  <rect x="450" y="150" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="525" y="140" fill="#c9d1d9" font-size="12" transform="rotate(-45, 525, 140)" text-anchor="start">OTHER_UNKNOWN</text>
+  <rect x="500" y="150" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="140" y="230" fill="#c9d1d9" font-size="12" text-anchor="end">M02</text>
+  <rect x="150" y="200" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="200" y="200" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="250" y="200" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="300" y="200" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="350" y="200" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="400" y="200" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="450" y="200" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="500" y="200" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="140" y="280" fill="#c9d1d9" font-size="12" text-anchor="end">M03</text>
+  <rect x="150" y="250" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="200" y="250" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="250" y="250" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="300" y="250" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="350" y="250" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="400" y="250" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="450" y="250" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="500" y="250" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="140" y="330" fill="#c9d1d9" font-size="12" text-anchor="end">SYNTAX_ERROR</text>
+  <rect x="150" y="300" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="200" y="300" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="250" y="300" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="300" y="300" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="350" y="300" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="400" y="300" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="450" y="300" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="500" y="300" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="140" y="380" fill="#c9d1d9" font-size="12" text-anchor="end">RUNTIME_ERROR</text>
+  <rect x="150" y="350" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="200" y="350" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="250" y="350" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="300" y="350" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="350" y="350" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="400" y="350" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="450" y="350" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="500" y="350" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="140" y="430" fill="#c9d1d9" font-size="12" text-anchor="end">CARELESS_ERROR</text>
+  <rect x="150" y="400" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="200" y="400" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="250" y="400" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="300" y="400" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="350" y="400" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="400" y="400" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="450" y="400" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="500" y="400" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="140" y="480" fill="#c9d1d9" font-size="12" text-anchor="end">CAREFUL_CORRECT</text>
+  <rect x="150" y="450" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="200" y="450" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="250" y="450" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="300" y="450" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="350" y="450" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="400" y="450" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="450" y="450" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="500" y="450" width="48" height="48" fill="#161b22" rx="4" />
+  <text x="140" y="530" fill="#c9d1d9" font-size="12" text-anchor="end">OTHER_UNKNOWN</text>
+  <rect x="150" y="500" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="200" y="500" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="250" y="500" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="300" y="500" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="350" y="500" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="400" y="500" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="450" y="500" width="48" height="48" fill="#161b22" rx="4" />
+  <rect x="500" y="500" width="48" height="48" fill="#161b22" rx="4" />
+</svg>
